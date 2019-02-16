@@ -19,10 +19,10 @@ from django.conf.urls import include
 from web_app import views
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^web_app/', include('web_app.urls')),
-    # above maps any URLs starting
-    # with rango/ to be handled by
-    # the rango application
-    url(r'^admin/', admin.site.urls),
-]
+            url(r'^$', views.index, name='index'),
+            url(r'^rango/', include('rango.urls')),
+            # above maps any URLs starting
+            # with rango/ to be handled by
+            # the rango application
+            url(r'^admin/', admin.site.urls),
+        ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
