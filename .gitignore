@@ -1,0 +1,7 @@
+db.sqlite3
+__pycache__/
+*.
+*.pyc
+.idea/
+web_app/__pycache__/
+BringMeHome/__pycache__/
