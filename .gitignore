@@ -5,3 +5,4 @@ __pycache__/
 .idea/
 web_app/__pycache__/
 BringMeHome/__pycache__/
+/web_app/migrations

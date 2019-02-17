@@ -5,6 +5,8 @@ import django
 
 django.setup()
 from web_app.models import Post, Comment
+import datetime
+from django.utils import timezone
 
 
 def populate():
@@ -15,10 +17,10 @@ def populate():
     # through each data structure, and add the data to our models.
 
     comments = [
-        {"commentid": 1, "text": "kjasakjs", "date": "2014-12-12 13:30"},
-        {"commentid": 2, "text": "dfgd", "date": "2015-12-12 13:30"}]
+        {"commentid": 1, "text": "kjasakjs", "date": "2019-02-05 00:00:00+00:00"},
+        {"commentid": 2, "text": "dfgd", "date": "2019-02-05 00:00:00+00:00"}]
 
-    posts = {1: {"comments": comments, "date": "2016-12-12 13:30", "text": "dsadada", "status": False}}
+    posts = {1: {"comments": comments, "date": "2019-02-05 00:00:00+00:00", "text": "dsadada", "status": False}}
 
     # If you want to add more catergories or pages,
     # add them to the dictionaries above.
@@ -33,10 +35,10 @@ def populate():
         for c in post_data["comments"]:
             add_comment(p, c["commentid"], c["text"], c["date"])
 
-    # Print out the categories we have added.
-    for p in Post.objects.all():
-        for c in Comment.objects.filter(postId=p):
-            print("- {0} - {1}".format(str(p), str(c)))
+    # # Print out the categories we have added.
+    # for p in Post.objects.all():
+    #     for c in Comment.objects.filter(postId=p):
+            # print("- {0} - {1}".format(str(p), str(c)))
 
 
 def add_comment(postid, commentid, text, date):

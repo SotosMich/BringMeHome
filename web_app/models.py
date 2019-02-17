@@ -15,7 +15,7 @@ class Post(models.Model):
     userId = models.ForeignKey(User, on_delete=models.PROTECT, null=True)
 
     def __str__(self):  # For Python 2, use __unicode__ too
-        return self.postId
+        return str(self.postId)
 
 
 class Comment (models.Model):
@@ -37,4 +37,4 @@ class UserProfile(models.Model):
     # Override the __unicode__() method to return out something meaningful!
     # Remember if you use Python 2.7.x, define __unicode__ too!
     def __str__(self):
-        return self.user.username
+        return self.user
