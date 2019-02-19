@@ -1,18 +1,14 @@
-<!DOCTYPE html>
-{% load staticfiles %} <!-- New line -->
-<html>
-<head>
-    <title>Rango</title>
-</head>
-<body>
-<h1>Rango says....</h1>
+{% extends 'web_app/base.html' %}
+{% load staticfiles %}
+{% block title_block %}
+About
+{% endblock %}
+
+{% block body_block %}
 <div>
-    here is the about page<br/>
-    This tutorial has been put together by Sotiris Michael.
-    <strong>{{ boldmessage }}</strong><br/>
+    <h1>About Page</h1>
+    <div>
+        About Page description<br/>
+    </div>
 </div>
-<div>
-    <a href='/web_app/'>Index</a><br/>
-</div>
-</body>
-</html> 
+{% endblock %}
