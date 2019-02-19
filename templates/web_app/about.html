@@ -1,18 +1,12 @@
-<!DOCTYPE html>
-{% load staticfiles %} <!-- New line -->
-<html>
-<head>
-    <title>Rango</title>
-</head>
-<body>
-<h1>Rango says....</h1>
-<div>
-    here is the about page<br/>
-    This tutorial has been put together by Sotiris Michael.
-    <strong>{{ boldmessage }}</strong><br/>
+{% extends 'web_app/bcc.html' %}
+{% block body_block %}
+<div class="hero-unit">
+    <h1>About Rango</h1>
+    
+    This is <strong>Rango's about page</strong>.<br />
+
+    You've visited the site on <strong>{{ visit_count }} occasion(s)</strong>.<br />
+
+    Here's a picture of Rango!<br />
 </div>
-<div>
-    <a href='/web_app/'>Index</a><br/>
-</div>
-</body>
-</html> 
+{% endblock %}
