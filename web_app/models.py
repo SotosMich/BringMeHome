@@ -1,6 +1,6 @@
 # Create your models here.
 from django.db import models
-# from django.template.defaultfilters import slugify
+from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 
 
@@ -13,12 +13,17 @@ class Post(models.Model):
     image = models.ImageField(upload_to='post_images', blank=True)
     status = models.BooleanField(default=False)
     userId = models.ForeignKey(User, on_delete=models.PROTECT, null=True)
+    slug = models.SlugField(unique=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.postId)
+        super(Post, self).save(*args, **kwargs)
 
     def __str__(self):  # For Python 2, use __unicode__ too
         return str(self.postId)
 
 
-class Comment (models.Model):
+class Comment(models.Model):
     commentId = models.AutoField(primary_key=True)
     text = models.CharField(max_length=256)
     date = models.DateTimeField(max_length=50, null=True)

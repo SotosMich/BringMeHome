@@ -1,27 +1,41 @@
-
 {% extends 'web_app/bcc.html' %}
 {% load staticfiles %}
 
 {% block title_block %}
-Index
+    Index
 {% endblock %}
 {% block body_block %}
-<div class="hero-unit">
-    <h1>Index Rango</h1>
-<div>
-    <div>
-        <ul>
-            {% if user.is_authenticated%}
-            <li><a href="{% url 'logout' %}">Logout</a></li>
+    <div class="hero-unit">
+        <h1>Index Rango</h1>
+        <div>
+            <div>
+                <ul>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'logout' %}">Logout</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}">Sign In</a></li>
+                        <li><a href="{% url 'register' %}">Sign Up</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'about' %}">About</a></li>
+                    <li><a href="{% url 'index' %}">Index</a></li>
+
+                </ul>
+            </div>
+            <br/>
+        </div>
+        <div>
+            {% if posts %}
+                <ul>
+                    {% for post in posts %}
+                        <li>
+                            <a href="/web_app/post/{{ post.postId }}">{{ post.postId }}</a>
+                        </li>
+                        <li>{{ post.userId }}</li>
+                        <li>{{ post.text }}</li>
+                    {% endfor %}
+                </ul>
             {% else %}
-            <li><a href="{% url 'login' %}">Sign In</a></li>
-            <li><a href="{% url 'register' %}">Sign Up</a></li>
+                <strong>There are no posts right now.</strong>
             {% endif %}
-            <li><a href="{% url 'about' %}">About</a></li>
-            <li><a href="{% url 'index' %}">Index</a></li>
-          
-        </ul>
-    </div>
-    <br />
-</div>
+        </div>
 {% endblock %}

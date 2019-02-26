@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from web_app.forms import UserForm, UserProfileForm, PostForm
+from web_app.forms import UserForm, UserProfileForm, PostForm, CommentForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from datetime import datetime
+from web_app.models import Post, Comment
+
 
 # Create your views here.
 
@@ -19,13 +21,16 @@ def index(request):
     # We make use of the shortcut function to make our lives easier.
     # Note that the first parameter is the template we wish to use.
 
+    post_list = Post.objects.order_by('-date')[:5]
+    context_dict = {'posts': post_list}
+
     request.session.set_test_cookie()
 
     # Call the helper function to handle the cookies
     visitor_cookie_handler(request)
 
     # Obtain our Response object early so we can add cookie information.
-    response = render(request, 'web_app/index.html')
+    response = render(request, 'web_app/index.html', context_dict)
 
     # Return response back to the user, updating any cookies that need changed.
     return response
@@ -143,6 +148,7 @@ def user_login(request):
 def restricted(request):
     return HttpResponse("Since you're logged in, you can see this text!")
 
+
 # Use the login_required() decorator to ensure only those logged in can
 # access the view.
 
@@ -184,15 +190,15 @@ def visitor_cookie_handler(request):
     # Update/set the visits cookie
     request.session['visits'] = visits
 
+
 @login_required
 def add_post(request):
-
     post_added = False
     form = PostForm()
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            
+
             if request.user:
                 post = form.save(commit=False)
                 post.userId = request.user
@@ -201,12 +207,70 @@ def add_post(request):
                 post_added = True
 
             return render(request,
-                  'web_app/add_post.html',
-                  {'post_form': form,
-                  'post_added': post_added})
+                          'web_app/add_post.html',
+                          {'post_form': form,
+                           'post_added': post_added})
         else:
             print(form.errors)
 
     return render(request,
-                'web_app/add_post.html',
-                {'post_form': form})
+                  'web_app/add_post.html',
+                  {'post_form': form})
+
+
+@login_required
+def add_comment(request):
+    comment_added = False
+    form = CommentForm()
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+
+            if request.user:
+                comment = form.save(commit=False)
+                comment.userId = request.user
+                comment.date = datetime.now()
+                # comment.postId = pare to id tou post
+                comment.save()
+                comment_added = True
+
+            return render(request,
+                          # 'web_app/add_comment.html',
+                          {'comment_form': form,
+                           'comment_added': comment_added})
+        else:
+            print(form.errors)
+
+        return render(request,
+                      # 'web_app/add_comment.html',
+                      {'comment_form': form})
+
+
+def show_post(request, postId):
+    # Create a context dictionary which we can pass
+    # to the template rendering engine.
+    context_dict = {}
+    try:
+        # Can we find a post id slug with the given name?
+        # If we can't, the .get() method raises a DoesNotExist exception.
+        # So the .get() method returns one model instance or raises an exception.
+        post = Post.objects.get(postId=postId)
+        # Retrieve all of the associated comments.
+        # Note that filter() will return a list of comment objects or an empty list
+
+        # comments = Comment.objects.filter(post=post)
+        # Adds our results list to the template context under name pages.
+
+        # context_dict['comments'] = comments
+        # We also add the category object from
+        # the database to the context dictionary.
+        # We'll use this in the template to verify that the category exists.
+        context_dict['post'] = post
+    except Post.DoesNotExist:
+        # We get here if we didn't find the specified category.
+        # Don't do anything -
+        # the template will display the "no category" message for us.
+        context_dict['post'] = None
+        # context_dict['comments'] = None
+    # Go render the response and return it to the client.
+    return render(request, 'web_app/post.html', context_dict)

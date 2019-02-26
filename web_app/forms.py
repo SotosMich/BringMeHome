@@ -60,6 +60,7 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ('phoneNumber', 'location', 'photo')
 
+
 class PostForm(forms.ModelForm):
     # text = forms.CharField(max_length=256,
     #                         help_text="Please enter the title of the page.")
@@ -79,3 +80,10 @@ class PostForm(forms.ModelForm):
         # Here, we are hiding the foreign key.
         # we can either exclude the category field from the form,
         # exclude = ('category',)
+
+
+class CommentForm(forms.ModelForm):
+
+    class Meta:
+        model = Comment
+        fields = ('text', )

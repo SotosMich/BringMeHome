@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post</title>
+</head>
+<body>
+<div>
+    {% if post %}
+        <h1>{{ post.postId }}</h1>
+        {% if comments %}
+            <ul>
+                {% for comment in comments %}
+                    <li><a href="{{ comment.userId }}">{{ comment.text }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>No comments currently in post.</strong>
+        {% endif %}
+    {% else %}
+        The specified post does not exist!
+    {% endif %}
+</div>
+</body>
+</html>
