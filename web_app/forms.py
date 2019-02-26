@@ -62,15 +62,7 @@ class UserProfileForm(forms.ModelForm):
 
 
 class PostForm(forms.ModelForm):
-    # text = forms.CharField(max_length=256,
-    #                         help_text="Please enter the title of the page.")
-    # date = forms.DateTimeField(help_text="Please enter a valid date")
-    # url = forms.URLField(max_length=200,
-    #                      help_text="Please enter the URL of the page.")
-    # views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
-
     class Meta:
-        # Provide an association between the ModelForm and a model
         model = Post
         fields = ('text', 'image')
 

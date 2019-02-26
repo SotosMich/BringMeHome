@@ -9,6 +9,8 @@ from django.contrib.auth import logout
 from datetime import datetime
 from web_app.models import Post, Comment
 
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 
 # Create your views here.
 
@@ -194,15 +196,14 @@ def visitor_cookie_handler(request):
 @login_required
 def add_post(request):
     post_added = False
-    form = PostForm()
+    form = PostForm(request.POST or None, request.FILES or None)
+    # if request.method == 'POST':
     if request.method == 'POST':
-        form = PostForm(request.POST)
         if form.is_valid():
 
             if request.user:
                 post = form.save(commit=False)
                 post.userId = request.user
-                post.date = datetime.now()
                 post.save()
                 post_added = True
 
@@ -212,6 +213,8 @@ def add_post(request):
                            'post_added': post_added})
         else:
             print(form.errors)
+    else:
+        form = PostForm()
 
     return render(request,
                   'web_app/add_post.html',
