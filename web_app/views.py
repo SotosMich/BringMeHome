@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from web_app.forms import UserForm, UserProfileForm
+from web_app.forms import UserForm, UserProfileForm, PostForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -182,3 +182,24 @@ def visitor_cookie_handler(request):
 
     # Update/set the visits cookie
     request.session['visits'] = visits
+
+@login_required
+def add_post(request):
+
+    form = PostForm()
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            # if category:
+            #     page = form.save(commit=False)
+            #     page.category = category
+            #     page.views = 0
+            #     page.save()
+                context_dict = {'form': form}
+                return render(request, 'web_app/add_post.html', context_dict)
+        else:
+            print(form.errors)
+
+    return render(request,
+                'web_app/add_post.html',
+                {'post_form': form})
