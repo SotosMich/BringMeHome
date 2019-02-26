@@ -8,9 +8,13 @@ from django.contrib.auth.models import User
 class Post(models.Model):
     # postId = models.ForeignKey(Category, on_delete=models.PROTECT)
     postId = models.AutoField(primary_key=True)
-    date = models.DateTimeField(max_length=50, null=True)
+    # date = models.DateTimeField(max_length=50, null=True)
+    date = models.DateTimeField(auto_now_add=True)
     text = models.CharField(max_length=256)
-    image = models.ImageField(upload_to='post_images', blank=True)
+    # image = models.ImageField(upload_to='post_images/')
+    image = models.ImageField(upload_to='post_images/', 
+        null=True, 
+        blank=True)
     status = models.BooleanField(default=False)
     userId = models.ForeignKey(User, on_delete=models.PROTECT, null=True)
 
@@ -32,7 +36,7 @@ class UserProfile(models.Model):
     # The additional attributes we wish to include.
     phoneNumber = models.IntegerField()
     location = models.CharField(max_length=25)
-    photo = models.ImageField(upload_to='profile_images', blank=True)
+    photo = models.ImageField(upload_to='profile_images/', blank=True)
 
     # Override the __unicode__() method to return out something meaningful!
     # Remember if you use Python 2.7.x, define __unicode__ too!
