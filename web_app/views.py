@@ -187,17 +187,23 @@ def visitor_cookie_handler(request):
 @login_required
 def add_post(request):
 
+    post_added = False
     form = PostForm()
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            # if category:
-            #     page = form.save(commit=False)
-            #     page.category = category
-            #     page.views = 0
-            #     page.save()
-                context_dict = {'form': form}
-                return render(request, 'web_app/add_post.html', context_dict)
+            
+            if request.user:
+                post = form.save(commit=False)
+                post.userId = request.user
+                post.date = datetime.now()
+                post.save()
+                post_added = True
+
+            return render(request,
+                  'web_app/add_post.html',
+                  {'post_form': form,
+                  'post_added': post_added})
         else:
             print(form.errors)
 
