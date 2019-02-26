@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from web_app.models import  UserProfile, Post, Comment
+from web_app.models import UserProfile, Post, Comment
 
 # class CategoryForm(forms.ModelForm):
 #     name = forms.CharField(max_length=128,
@@ -49,9 +49,11 @@ from web_app.models import  UserProfile, Post, Comment
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
+
     class Meta:
         model = User
-        fields = ('first_name' , 'last_name','username', 'email', 'password')
+        fields = ('first_name', 'last_name', 'username', 'email', 'password')
+
 
 class UserProfileForm(forms.ModelForm):
     class Meta:

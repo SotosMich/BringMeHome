@@ -29,9 +29,12 @@
            <div class="nav-collapse collapse">
                <ul class="nav pull-right">
                     <li class="navbar-text">Welcome, Rangoesrs!</li>
+                   {% if user.is_authenticated%}
                     <li><a href="/web_app/logout/">Logout</a></li>
+                   {% else %}
                     <li><a href="/web_app/register/">Register</a></li>
                     <li><a href="/web_app/login/">Login</a></li>
+                   {% endif %}
                </ul>
                <ul class="nav">
                     <li><a href="/web_app/restricted/">Restricted</a></li>
