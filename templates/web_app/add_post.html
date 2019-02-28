@@ -12,7 +12,7 @@ Add Post
     <a href="{% url 'index' %}">Return to the homepage.</a><br />
     {% else %}
     <form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
-         {% for field in post_form %}
+        {% for field in post_form %}
         {#% if field.id_for_label != 'id_text' %#}
         <div class="fieldWrapper">
             {{ field.errors }}
@@ -27,4 +27,12 @@ Add Post
     </form>
     {% endif %}
 </div>
+<script>
+    var onLoaded = function () {
+        // I am assuming your field has id of where_load, it might be different
+        var location_input = document.getElementById('id_text');
+        var autocomplete = new google.maps.places.Autocomplete(location_input);
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOwO2A_hmXFVDvjhz5Ygv9m-ZvR1_gYcM&libraries=places&callback=onLoaded" async defer></script>
 {% endblock %}
