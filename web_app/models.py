@@ -17,7 +17,7 @@ class Post(models.Model):
         blank=True)
     status = models.BooleanField(default=False)
     userId = models.ForeignKey(User, on_delete=models.PROTECT, null=True)
-    slug = models.SlugField(unique=True)
+    # slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.postId)
