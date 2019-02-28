@@ -62,9 +62,26 @@ class UserProfileForm(forms.ModelForm):
 
 
 class PostForm(forms.ModelForm):
+    # date = forms.DateTimeField(
+    #     input_formats=['%d/%m/%Y %H:%M'],
+    #     widget=forms.DateTimeInput(attrs={
+    #         'class': 'form-control datetimepicker-input',
+    #         'data-target': '#datetimepicker1'
+    #     })
+    # )
+    
+    title = forms.CharField(
+        max_length=65,
+        # widget=forms.Textarea(attrs={'style': 'border-color: red;'})
+    )
+
+    text = forms.CharField(
+        max_length=2000,
+        widget=forms.Textarea(attrs={'style': 'border-color: orange;'})
+    )
     class Meta:
         model = Post
-        fields = ('text', 'image')
+        fields = ('title', 'text', 'image')
 
         # What fields do we want to include in our form?
         # This way we don't need every field in the model present.
@@ -75,6 +92,11 @@ class PostForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
+
+    text = forms.CharField(
+        max_length=2000,
+        widget=forms.Textarea()
+    )
 
     class Meta:
         model = Comment

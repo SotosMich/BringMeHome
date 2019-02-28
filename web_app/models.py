@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 class Post(models.Model):
     # postId = models.ForeignKey(Category, on_delete=models.PROTECT)
     postId = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=65, default="")
     # date = models.DateTimeField(max_length=50, null=True)
     date = models.DateTimeField(auto_now_add=True)
     text = models.CharField(max_length=256)
@@ -16,6 +17,7 @@ class Post(models.Model):
         null=True, 
         blank=True)
     status = models.BooleanField(default=False)
+    # found = models.BooleanField(default=True)
     userId = models.ForeignKey(User, on_delete=models.PROTECT, null=True)
     # slug = models.SlugField(unique=True)
 
@@ -30,9 +32,9 @@ class Post(models.Model):
 class Comment(models.Model):
     commentId = models.AutoField(primary_key=True)
     text = models.CharField(max_length=256)
-    date = models.DateTimeField(max_length=50, null=True)
+    date = models.DateTimeField(auto_now_add=True)
     userId = models.ForeignKey(User, on_delete=models.PROTECT, null=True)
-    postId = models.ForeignKey(Post, on_delete=models.PROTECT, null=True)
+    postId = models.ForeignKey(Post, related_name='comments', on_delete=models.PROTECT, null=True)
 
 
 class UserProfile(models.Model):
