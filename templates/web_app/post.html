@@ -1,24 +1,70 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Post</title>
-</head>
-<body>
-<div>
-    {% if post %}
-        <h1>{{ post.postId }}</h1>
-        {% if comments %}
-            <ul>
-                {% for comment in comments %}
-                    <li><a href="{{ comment.userId }}">{{ comment.text }}</a></li>
+{% extends 'web_app/bcc.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+Post Page
+{% endblock %}
+{% block body_block %}
+<div class="hero-unit">
+    <h4>Post {{ post.postId }}</h4>
+
+    <div class="row">
+        {% if post %}
+        <div class="span12">
+            <center>
+                <h1>Title</h1>
+                <img src="{{ post.image.url }}" alt="img">
+                <div class="row">
+            </center>
+            <br><br>
+        </div>
+        <div class="span5">
+            <div class="side">
+                <div><b>Description:</b><br/>
+                    {{ post.text }}
+                </div>
+            </div>
+        </div>
+        <div class="span5">
+                {% if comments %}
+                <h3>Comments:</h3>
+                <ul>
+                    {% for comment in comments %}
+                    <li>
+                        <div class="side">
+                            <div>Posted in: {{comment.date}}</div>
+                        </div>
+                        <div class="side">
+                            <div><b>Text:</b><br />
+                                {{comment.text}}
+                            </div>
+                        </div>
+                        <br>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <strong>No comments currently in post.</strong>
+                {% endif %}
+            <h4>Comment now:</h4>
+            <form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
+                {% for field in comment_form %}
+                {#% if field.id_for_label != 'id_text' %#}
+                <div class="fieldWrapper">
+                    {{ field.errors }}
+                    {{ field.label_tag }} {{ field }}
+                    {% if field.help_text %}
+                    <p class="help">{{ field.help_text|safe }}</p>
+                    {% endif %}
+                </div>
+                {#% endif %#}
                 {% endfor %}
-            </ul>
-        {% else %}
-            <strong>No comments currently in post.</strong>
-        {% endif %}
+                <input type='submit' class='btn btn-default' value='Submit Comment' />
+            </form>
+        </div>
+    </div>
     {% else %}
-        The specified post does not exist!
+    The specified post does not exist!
     {% endif %}
 </div>
-</body>
-</html>
+{% endblock %}
