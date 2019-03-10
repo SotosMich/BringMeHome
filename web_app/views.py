@@ -23,7 +23,7 @@ def index(request):
     # We make use of the shortcut function to make our lives easier.
     # Note that the first parameter is the template we wish to use.
 
-    post_list = Post.objects.order_by('-date')[:5]
+    post_list = Post.objects.order_by('-date')[:6]
     context_dict = {'posts': post_list}
 
     request.session.set_test_cookie()
@@ -191,6 +191,8 @@ def visitor_cookie_handler(request):
 
     # Update/set the visits cookie
     request.session['visits'] = visits
+
+
 
 
 @login_required

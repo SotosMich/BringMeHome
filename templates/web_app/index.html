@@ -1,42 +1,109 @@
-{% extends 'web_app/bcc.html' %}
+{% extends 'web_app/bbc.html' %}
 {% load staticfiles %}
 
 {% block title_block %}
     Index
 {% endblock %}
 {% block body_block %}
-    <div class="hero-unit">
-        <h1>Index Rango</h1>
-        <div>
-            <div>
-                <ul>
-                    {% if user.is_authenticated %}
-                        <li><a href="{% url 'logout' %}">Logout</a></li>
-                    {% else %}
-                        <li><a href="{% url 'login' %}">Sign In</a></li>
-                        <li><a href="{% url 'register' %}">Sign Up</a></li>
-                    {% endif %}
-                    <li><a href="{% url 'about' %}">About</a></li>
-                    <li><a href="{% url 'index' %}">Index</a></li>
+    <!-- featured
+    ================================================== -->
+    <section class="s-featured">
+        <div class="row">
+            <div class="col-full">
 
-                </ul>
-            </div>
-            <br/>
+                <div class="featured-slider featured" data-aos="zoom-in">
+
+                    <div class="featured__slide">
+                        <div class="entry">
+
+                            <div class="entry__background"
+                                 style="background-image:url({% static 'img/thumbs/featured/found.jpg' %});"></div>
+
+                            <div class="entry__content">
+                                <span class="entry__category"><a href="#0">Found a dog</a></span>
+
+                                <h1><a href="#0" title="">If you have found a stray dog, help it find a home.</a></h1>
+
+                            </div> <!-- end entry__content -->
+
+                        </div> <!-- end entry -->
+                    </div> <!-- end featured__slide -->
+
+                    <div class="featured__slide">
+
+                        <div class="entry">
+
+                            <div class="entry__background"
+                                 style="background-image:url({% static 'img/thumbs/featured/lost.jpg' %});"></div>
+
+                            <div class="entry__content">
+                                <span class="entry__category"><a href="#0">Lost a dog</a></span>
+
+                                <h1><a href="#0" title="">Have you lost your pet? Let people know.</a></h1>
+
+                            </div> <!-- end entry__content -->
+
+                        </div> <!-- end entry -->
+
+                    </div> <!-- end featured__slide -->
+
+                    <div class="featured__slide">
+
+                        <div class="entry">
+
+                            <div class="entry__background"
+                                 style="background-image:url({% static 'img/thumbs/featured/adopt.jpg' %});"></div>
+
+                            <div class="entry__content">
+                                <span class="entry__category"><a href="#0">Adopt a dog</a></span>
+
+                                <h1><a href="#0" title="">Are you looking for a new best friend?</a></h1>
+
+                            </div> <!-- end entry__content -->
+
+                        </div> <!-- end entry -->
+
+                    </div> <!-- end featured__slide -->
+
+                </div> <!-- end featured -->
+
+            </div> <!-- end col-full -->
         </div>
-        <div>
-            {% if posts %}
+    </section> <!-- end s-featured -->
+
+    <!-- s-extra
+    ================================================== -->
+    <section class="s-extra">
+
+        <div class="row">
+            <h3>Recent Posts</h3>
+
+            <div class="block-1-2 block-m-full popular__posts">{% if posts %}
                 <ul>
                     {% for post in posts %}
-                        <li>
-                            <a href="/web_app/post/{{ post.postId }}">{{ post.postId }}</a>
-                        </li>
-                        <li>{{ post.userId }}</li>
-                        <li>{{ post.text }}</li>
-                        <li>{{ post.title }}</li>
+                        <article class="col-block popular__post">
+                            <a href="/web_app/post/{{ post.postId }}" class="popular__thumb">
+                                {% if post.image %}
+                                    <img src="{{ post.image.url }}">
+                                {% else %}
+                                    <img src="{% static 'img/thumbs/featured/adopt.jpg' %}">
+                                {% endif %}
+                            </a>
+                            <h5>{{ post.title }}</h5>
+                            <section class="popular__meta">
+                                <span class="popular__author"><span>By</span> <a href="#0">{{ post.userId }}</a></span>
+                                <span class="popular__date"><span>on</span> <time
+                                        datetime="2018-06-14">{{ post.date }}</time></span>
+                            </section>
+                        </article>
                     {% endfor %}
                 </ul>
             {% else %}
                 <strong>There are no posts right now.</strong>
             {% endif %}
-        </div>
+
+            </div> <!-- end popular_posts -->
+        </div> <!-- end row -->
+
+    </section> <!-- end s-extra -->
 {% endblock %}

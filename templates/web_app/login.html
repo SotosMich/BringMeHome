@@ -1,18 +1,21 @@
-{% extends 'web_app/bcc.html' %}
+{% extends 'web_app/bbc.html' %}
 {% load staticfiles %}
 {% block title_block %}
-Login Page
+    Login Page
 {% endblock %}
 {% block body_block %}
-<div class="hero-unit">
-   <h1>Login to Rango</h1>
+    <section class="s-extra">
+        <div class="row">
+            <h1>Sign In</h1>
 
-<form id="login_form" method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    Username: <input type="text" name="username" value="" size="50"/>
-    <br/>
-    Password: <input type="password" name="password" value="" size="50"/>
-    <br/>
-    <input type="submit" value="submit"/>
-</form>
+            <form id="login_form" method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                Username: <input type="text" name="username" value="" size="50"/>
+                <br/>
+                Password: <input type="password" name="password" value="" size="50"/>
+                <br/>
+                <input type="submit" value="submit"/>
+            </form>
+        </div>
+    </section>
 {% endblock %}
