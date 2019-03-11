@@ -5,8 +5,7 @@
     Index
 {% endblock %}
 {% block body_block %}
-    <!-- featured
-    ================================================== -->
+    <!-- featured-->
     <section class="s-featured">
         <div class="row">
             <div class="col-full">
@@ -71,8 +70,7 @@
         </div>
     </section> <!-- end s-featured -->
 
-    <!-- s-extra
-    ================================================== -->
+    <!-- s-extra-->
     <section class="s-extra">
 
         <div class="row">
@@ -89,7 +87,7 @@
                                     <img src="{% static 'img/thumbs/featured/adopt.jpg' %}">
                                 {% endif %}
                             </a>
-                            <h5>{{ post.title }}</h5>
+                            <h5><a href="/web_app/post/{{ post.postId }}">{{ post.title }}</h5>
                             <section class="popular__meta">
                                 <span class="popular__author"><span>By</span> <a href="#0">{{ post.userId }}</a></span>
                                 <span class="popular__date"><span>on</span> <time

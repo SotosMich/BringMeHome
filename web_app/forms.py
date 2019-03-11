@@ -95,7 +95,7 @@ class CommentForm(forms.ModelForm):
 
     text = forms.CharField(
         max_length=2000,
-        widget=forms.Textarea()
+        widget=forms.Textarea(attrs={'placeholder': 'Your Message*', 'class': 'full-width'}),
     )
 
     class Meta:

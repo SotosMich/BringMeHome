@@ -193,8 +193,6 @@ def visitor_cookie_handler(request):
     request.session['visits'] = visits
 
 
-
-
 @login_required
 def add_post(request):
     post_added = False
@@ -221,6 +219,7 @@ def add_post(request):
     return render(request,
                   'web_app/add_post.html',
                   {'post_form': form})
+
 
 def show_post(request, postId):
     # Create a context dictionary which we can pass
