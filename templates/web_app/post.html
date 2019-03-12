@@ -77,11 +77,12 @@
                 <div class="entry__media col-full">
                     <div class="entry__post-thumb">
                         {% if post.image %}
-                            <img src="{{ post.image.url }}">
+                            <img src="{{ post.image.url }}" sizes="(max-width: 1000px) 100vw, 1000px" alt="">
                         {% else %}
                             <img src="{% static 'img/thumbs/featured/adopt.jpg' %}"
-                        {% endif %}
                                  sizes="(max-width: 1000px) 100vw, 1000px" alt="">
+                        {% endif %}
+
                     </div>
                 </div>
 
@@ -101,7 +102,9 @@
                 <div class="col-full entry__main">
 
                     <div class="entry__author">
-                        <img src="images/avatars/user-03.jpg" alt="">
+                        {% if post.userId.userprofile.photo %}
+                            <img src={{ post.userId.userprofile.photo.url }} alt="">
+                        {% endif %}
 
                         <div class="entry__author-about">
                             <h5 class="entry__author-name">
@@ -134,8 +137,12 @@
                                     <li class="depth-1 comment">
 
                                         <div class="comment__avatar">
-                                            <img class="avatar" src="images/avatars/user-01.jpg" alt="" width="50"
-                                                 height="50">
+                                            {% if post.userId.userprofile.photo %}
+                                                <img class="avatar" src="{{ comment.userId.userprofile.photo.url }}"
+                                                     alt=""
+                                                     width="50"
+                                                     height="50">
+                                            {% endif %}
                                         </div>
 
                                         <div class="comment__content">
@@ -145,9 +152,9 @@
 
                                                 <div class="comment__meta">
                                                     <div class="comment__time">{{ comment.date }}</div>
-                                                    <div class="comment__reply">
-                                                        <a class="comment-reply-link" href="#0">Reply</a>
-                                                    </div>
+                                                    {#                                                    <div class="comment__reply">#}
+                                                    {#                                                        <a class="comment-reply-link" href="#0">Reply</a>#}
+                                                    {#                                                    </div>#}
                                                 </div>
                                             </div>
 
@@ -157,7 +164,7 @@
 
                                         </div>
 
-                                    </li> <!-- end comment level 1 -->
+                                    </li> <!-- end comment-->
                                 {% endfor %}
 
 
@@ -173,6 +180,11 @@
 
                     <!-- START respond -->
                     <div id="respond" class="col-full">
+
+                        {#                    {% if comment_added %}#}
+                        {#                        <strong>Thank you for commenting!</strong><br/>#}
+                        {#                        <a href="{% url 'index' %}">Click here to reurn to the homepage.</a><br/>#}
+                        {#                    {% else %}#}
 
                         <h3 class="h2">Add Comment</h3>
 

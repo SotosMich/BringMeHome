@@ -7,11 +7,11 @@
 {% block body_block %}
     <section class="s-extra">
         <div class="row">
-            <h1>Add Post</h1>
             {% if post_added %}
-                BringMeHome says: <strong>You just post something!</strong>
-                <a href="{% url 'index' %}">Return to the homepage.</a><br/>
+                <strong>Thank you for posting!</strong><br/>
+                <a href="{% url 'index' %}">Click here to reurn to the homepage.</a><br/>
             {% else %}
+                <h1>Add a Post</h1>
                 <form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
                     {% for field in post_form %}
                         {#% if field.id_for_label != 'id_text' %#}
@@ -24,7 +24,7 @@
                         </div>
                         {#% endif %#}
                     {% endfor %}
-                    <input type='submit' class='btn btn-default' value='Create Post'/>
+                    <input type='submit' class="btn btn--primary btn-wide btn--large full-width" value='Submit'/>
                 </form>
             {% endif %}
         </div>

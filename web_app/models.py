@@ -16,7 +16,8 @@ class Post(models.Model):
     image = models.ImageField(upload_to='post_images/', 
         null=True, 
         blank=True)
-    status = models.BooleanField(default=False)
+    status = models.IntegerField(default=False)
+    location = models.CharField(max_length=128, default="")
     # found = models.BooleanField(default=True)
     userId = models.ForeignKey(User, on_delete=models.PROTECT, null=True)
     # slug = models.SlugField(unique=True)
