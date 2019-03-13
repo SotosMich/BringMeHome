@@ -250,3 +250,8 @@ def show_post(request, postId):
                                                  'comment_form': form,
                                                  'comment_added': comment_added,
                                                  'comments': comments})
+
+def map(request):
+    
+    response = render(request, 'web_app/map.html')
+    return response
