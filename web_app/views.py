@@ -205,7 +205,7 @@ def add_post(request):
                 post.userId = request.user
                 post.save()
                 post_added = True
-
+            form = PostForm()
             return render(request,
                           'web_app/add_post.html',
                           {'post_form': form,

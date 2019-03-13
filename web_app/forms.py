@@ -89,9 +89,14 @@ class PostForm(forms.ModelForm):
         widget=forms.Textarea(attrs={'placeholder': 'Write your description here...', 'class': 'full-width'})
     )
 
+    location = forms.CharField(
+        max_length=128,
+        label='Location'
+    )
+
     class Meta:
         model = Post
-        fields = ('status', 'title', 'text', 'image')
+        fields = ('status', 'title', 'location', 'text', 'image')
 
         # What fields do we want to include in our form?
         # This way we don't need every field in the model present.

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 
 <head>
@@ -37,27 +37,53 @@
 </head>
 
 <body>
+    <p id="lat"></p> 
+    <p id="lng"></p> 
     <div id="floating-panel">
-        <input id="address" type="textbox" value="Sydney, NSW">
-        <input id="submit" type="button" value="Geocode">
+        <input id="address" type="textbox" value="" onChange="change_address(this.value);">
     </div>
     <div id="map"></div>
     <script>
         function initMap() {
-            var address = "Kelvinhaugh Street, Glasgow, UK";
+            var address = "Glasgow";
             var geocoder = new google.maps.Geocoder();
             var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 8,
-                center: { lat: -34.397, lng: 150.644 }
+                zoom: 15,
+                scrollwheel: true,
+                // center: { lat: -34.397, lng: 150.644 }
             });
 
             // var address = document.getElementById('address').value;
 
             geocoder.geocode({ 'address': address }, function (results, status) {
                 if (status === 'OK') {
-                    resultsMap.setCenter(results[0].geometry.location);
+                    map.setCenter(results[0].geometry.location);
                     var marker = new google.maps.Marker({
-                        map: resultsMap,
+                        map: map,
+                        position: results[0].geometry.location
+                    });
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            })
+        }
+
+        function change_address(address){
+            var address = address;
+            var geocoder = new google.maps.Geocoder();
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                scrollwheel: true,
+                // center: { lat: -34.397, lng: 150.644 }
+            });
+
+            // var address = document.getElementById('address').value;
+
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status === 'OK') {
+                    map.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: map,
                         position: results[0].geometry.location
                     });
                 } else {
@@ -71,4 +97,53 @@
         </script>
 </body>
 
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>My First Google Map</h1>
+
+<div id="googleMap" style="width:500px;height:500px;"></div>
+
+<script>
+function myMap() {
+var mapProp= {
+  center:new google.maps.LatLng(51.508742,-0.120850),
+  zoom:5,
+};
+var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+}
+</script>
+
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOwO2A_hmXFVDvjhz5Ygv9m-ZvR1_gYcM&callback=myMap">
+</script>
+
+</body>
 </html>
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOwO2A_hmXFVDvjhz5Ygv9m-ZvR1_gYcM&v=3.exp&sensor=false&libraries=places"></script>
+    <script>
+        function initialize() {
+        var address = 'Kolkata';
+            geocoder = new google.maps.Geocoder();
+            geocoder.geocode({
+            'address': address
+            }, function(results, status) {      
+                var lat=document.getElementById("lat").innerHTML=results[0].geometry.location.lat();    
+                var lng=document.getElementById("lng").innerHTML=results[0].geometry.location.lng();        
+            });
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+</head>
+<body>
+    <p id="lat"></p> 
+    <p id="lng"></p> 
+</body>
+</html> -->
