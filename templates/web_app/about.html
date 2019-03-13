@@ -1,18 +1,83 @@
-
-{% extends 'web_app/bcc.html' %}
+{% extends 'web_app/bbc.html' %}
 {% load staticfiles %}
 
 {% block title_block %}
-About
+    About
 {% endblock %}
 
 {% block body_block %}
-<div class="hero-unit">
-    <h1>About Rango</h1>
-    
-    This is <strong>Rango's about page</strong>.<br />
+    <!-- s-content-->
+    <section class="s-content s-content--top-padding s-content--narrow">
 
-    You've visited the site on <strong>{{ visit_count }} occasion(s)</strong>.<br />
+        <div class="row narrow">
+            <div class="col-full s-content__header">
+                <h1 class="display-1 display-1--with-line-sep">About BringMeHome </h1>
+                <p class="lead">
+                    BringMeHome is the first website in Greece that aims to find a shelter for every homeless dog.
+                </p>
+            </div>
+        </div>
 
-    Here's a picture of Rango!<br />
+        <div class="row">
+            <div class="col-full s-content__main">
+                <p>
+                    <img src="{% static 'img/thumbs/about/about-1000.jpg' %}"
+                         srcset="{% static 'img/thumbs/about/about-2000.jpg' %} 2000w,
+                             {% static 'img/thumbs/about/about-1000.jpg' %} 1000w,
+                             {% static 'img/thumbs/about/about-500.jpg' %} 500w"
+                         sizes="(max-width: 2000px) 100vw, 2000px" alt="">
+                </p>
+
+                <h2>This Is Our Story</h2>
+
+                <p>
+                    The number of stray dogs in Greece has been exponentially increasing. It is a crucial problem that
+                    needs
+                    to be tackled.
+                    The objective of our web application is two fold. Firstly, It provides a platform for reporting lost
+                    or
+                    found dogs. Moreover, it helps stray dogs find a potential family and a new sweet home.
+                    Users will be able to seek and report lost and found dogs across the country.
+                    Pet owners will be able to report their lost dogs.
+                    People who found a stray dog will have the opportunity to notify the community about the status of
+                    the
+                    dog.
+                    People who seek to adopt a dog will have the chance to find one through browsing our web application
+                    instead of buying one from a pet shop.
+                </p>
+
+                <hr>
+
+                <div class="row block-1-2 block-tab-full">
+                    <div class="col-block">
+                        <h4 class="quarter-top-margin">Who We Are.</h4>
+                        <p>Our team is comprised out of four tech guys. We love dogs and animals in general, and we
+                            think that by creating this platform we do our best to save stray dogs.
+                        </p>
+                    </div>
+
+                    <div class="col-block">
+                        <h4 class="quarter-top-margin">Our Mission.</h4>
+                        <p>We created BringMeHome in order to connect people to join forces against the problem of stray
+                            dogs. Our job is to provide shelter to homeless dogs and find dogs that got lost.</p>
+                    </div>
+
+                    <div class="col-block">
+                        <h4 class="quarter-top-margin">Our Vision.</h4>
+                        <p>We strive to help any dog that needs care and shelter. Our ultimate goal is to help every dog
+                            find a loving home. We dream of a Greece without any stray dogs.</p>
+                    </div>
+
+                    <div class="col-block">
+                        <h4 class="quarter-top-margin">Our Core Values.</h4>
+                        <p>We believe in combined community effort and hard work and we think we can raise awareness
+                            through our platform.</p>
+                    </div>
+
+                </div>
+
+            </div> <!-- s-content__main -->
+        </div> <!-- end row -->
+
+    </section> <!-- end s-content -->
 {% endblock %}

@@ -16,6 +16,8 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.conf.urls import include
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
 from web_app import views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -27,4 +29,4 @@ urlpatterns = [
             # with web_app/ to be handled by
             # the web_app application
             url(r'^admin/', admin.site.urls),
-        ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+        ] + staticfiles_urlpatterns() + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

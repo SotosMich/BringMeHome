@@ -69,19 +69,29 @@ class PostForm(forms.ModelForm):
     #         'data-target': '#datetimepicker1'
     #     })
     # )
+    CHOICES = [
+        ('1', 'Found'),
+        ('2', 'Lost'),
+        ('3', 'Adopt'),
+    ]
+
+    status = forms.CharField(label='Post Type', widget=forms.Select(choices=CHOICES))
     
     title = forms.CharField(
         max_length=65,
-        # widget=forms.Textarea(attrs={'style': 'border-color: red;'})
+        label='Post Title'
+        # widget=forms.Textarea(attrs={'placeholder': 'Title'})
     )
 
     text = forms.CharField(
         max_length=2000,
-        widget=forms.Textarea(attrs={'style': 'border-color: orange;'})
+        label='Description',
+        widget=forms.Textarea(attrs={'placeholder': 'Write your description here...', 'class': 'full-width'})
     )
+
     class Meta:
         model = Post
-        fields = ('title', 'text', 'image')
+        fields = ('status', 'title', 'text', 'image')
 
         # What fields do we want to include in our form?
         # This way we don't need every field in the model present.
@@ -95,7 +105,7 @@ class CommentForm(forms.ModelForm):
 
     text = forms.CharField(
         max_length=2000,
-        widget=forms.Textarea()
+        widget=forms.Textarea(attrs={'placeholder': 'Your Message*', 'class': 'full-width'}),
     )
 
     class Meta:

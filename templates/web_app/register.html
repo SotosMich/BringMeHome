@@ -1,30 +1,32 @@
-{% extends 'web_app/bcc.html' %}
+{% extends 'web_app/bbc.html' %}
 {% load staticfiles %}
 
 {% block title_block %}
-Register
+    Register
 {% endblock %}
 
 {% block body_block %}
-<div class="hero-unit">
-   <h1>Register Page</h1>
+    <section class="s-extra">
+        <div class="row">
+            <h1>Sign Up</h1>
 
-{% if registered %}
-Rango says: <strong>thank you for registering!</strong>
-<a href="{% url 'index' %}">Return to the homepage.</a><br />
-{% else %}
-<strong>register here!</strong><br />
-<form id="user_form" method="post" action="{% url 'register' %}"
-      enctype="multipart/form-data">
+            {% if registered %}
+                <strong>Thank you for registering!</strong>
+                <a href="{% url 'index' %}"><br/>Click here to return to the homepage.</a><br/>
+            {% else %}
+                <form id="user_form" method="post" action="{% url 'register' %}"
+                      enctype="multipart/form-data">
 
-    {% csrf_token %}
+                    {% csrf_token %}
 
-    <!-- Display each form -->
-    {{ user_form.as_p }}
-    {{ profile_form.as_p }}
+                    <!-- Display each form -->
+                    {{ user_form.as_p }}
+                    {{ profile_form.as_p }}
 
-    <!-- Provide a button to click to submit the form. -->
-    <input type="submit" name="submit" value="Register"/>
-</form>
-{% endif %}
+                    <!-- Provide a button to click to submit the form. -->
+                    <input type="submit" name="submit" value="Register"/>
+                </form>
+            {% endif %}
+        </div>
+    </section>
 {% endblock %}

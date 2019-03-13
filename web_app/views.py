@@ -7,8 +7,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from datetime import datetime
-from web_app.models import Post, Comment
-
+from web_app.models import Post
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
@@ -23,7 +22,7 @@ def index(request):
     # We make use of the shortcut function to make our lives easier.
     # Note that the first parameter is the template we wish to use.
 
-    post_list = Post.objects.order_by('-date')[:5]
+    post_list = Post.objects.order_by('-date')[:6]
     context_dict = {'posts': post_list}
 
     request.session.set_test_cookie()
@@ -220,24 +219,28 @@ def add_post(request):
                   'web_app/add_post.html',
                   {'post_form': form})
 
+
+@login_required
 def show_post(request, postId):
     # Create a context dictionary which we can pass
     # to the template rendering engine.
-    comment_added = False
-    form = CommentForm()
+    form = CommentForm(request.POST or None)
 
     if request.method == 'POST':
-        if request.user:
-            form = CommentForm(request.POST)
-            if form.is_valid():            
+        if form.is_valid():
+
+            if request.user:
                 comment = form.save(commit=False)
                 comment.userId = request.user
                 post = Post.objects.get(postId=postId)
                 comment.postId = post
                 comment.save()
-                comment_added = True
 
-                form = CommentForm()
+                return HttpResponseRedirect('/web_app/post/' + postId)
+        else:
+            print(form.errors)
+    else:
+        form = CommentForm()
 
     try:
         post = Post.objects.get(postId=postId)
@@ -248,7 +251,6 @@ def show_post(request, postId):
         # context_dict['comments'] = None
     return render(request, 'web_app/post.html', {'post': post,
                                                  'comment_form': form,
-                                                 'comment_added': comment_added,
                                                  'comments': comments})
 
 def map(request):
