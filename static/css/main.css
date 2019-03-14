@@ -117,8 +117,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
-  margin-top: 6rem;
-  margin-bottom: 1.8rem;
+  margin-top: 2rem;
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 @media only screen and (max-width:600px) {
@@ -3973,7 +3974,6 @@ footer [class*="s-footer__"] > .row [class*="col-"]:last-child {
   position: relative;
   list-style: none;
   margin: 0;
-  padding: 1.8rem 0 0 0;
   padding-left: 14%;
 }
 
@@ -3984,10 +3984,11 @@ footer [class*="s-footer__"] > .row [class*="col-"]:last-child {
 }
 
 .comment__avatar img {
-  height: 6.6rem;
-  width: 6.6rem;
+  height: 7rem;
+  width: 7rem;
   border-radius: 100%;
   vertical-align: bottom;
+  margin-left: 50%;
 }
 
 .comment__info {
@@ -4012,6 +4013,7 @@ footer [class*="s-footer__"] > .row [class*="col-"]:last-child {
   position: absolute;
   top: 0;
   right: 0;
+  margin-right: 5%;
 }
 
 .comment__meta .comment__time {

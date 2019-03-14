@@ -29,4 +29,13 @@
             {% endif %}
         </div>
     </section>
+    <script>
+        function initMap() {
+            var location_input = document.getElementById('id_location');
+            var autocomplete = new google.maps.places.Autocomplete(location_input);
+            };
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOwO2A_hmXFVDvjhz5Ygv9m-ZvR1_gYcM&libraries=places&callback=initMap">
+    </script>
 {% endblock %}

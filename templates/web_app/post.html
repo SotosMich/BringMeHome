@@ -5,68 +5,6 @@
     Post
 {% endblock %}
 {% block body_block %}
-    {#<div class="hero-unit">#}
-    {#    <h4>Post {{ post.postId }}</h4>#}
-    {##}
-    {#    <div class="row">#}
-    {#        {% if post %}#}
-    {#        <div class="span12">#}
-    {#            <center>#}
-    {#                <h1>Title</h1>#}
-    {#                <img src="{{ post.image.url }}" alt="img">#}
-    {#                <div class="row">#}
-    {#            </center>#}
-    {#            <br><br>#}
-    {#        </div>#}
-    {#        <div class="span5">#}
-    {#            <div class="side">#}
-    {#                <div><b>Description:</b><br/>#}
-    {#                    {{ post.text }}#}
-    {#                </div>#}
-    {#            </div>#}
-    {#        </div>#}
-    {#        <div class="span5">#}
-    {#    {% if comments %}#}
-    {#        <h3>Comments:</h3>#}
-    {#        <ul>#}
-    {#            {% for comment in comments %}#}
-    {#                <li>#}
-    {#                    <div class="side">#}
-    {#                        <div>Posted in: {{ comment.date }}</div>#}
-    {#                    </div>#}
-    {#                    <div class="side">#}
-    {#                        <div><b>Text:</b><br/>#}
-    {#                            {{ comment.text }}#}
-    {#                        </div>#}
-    {#                    </div>#}
-    {#                    <br>#}
-    {#                </li>#}
-    {#            {% endfor %}#}
-    {#        </ul>#}
-    {#    {% else %}#}
-    {#        <strong>No comments currently in post.</strong>#}
-    {#    {% endif %}#}
-    {#    <h4>Comment now:</h4>#}
-    {#    <form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}#}
-    {#        {% for field in comment_form %}#}
-    {#            % if field.id_for_label != 'id_text' %#}
-    {#            <div class="fieldWrapper">#}
-    {#                {{ field.errors }}#}
-    {#                {{ field.label_tag }} {{ field }}#}
-    {#                {% if field.help_text %}#}
-    {#                    <p class="help">{{ field.help_text|safe }}</p>#}
-    {#                {% endif %}#}
-    {#            </div>#}
-    {#            % endif %#}
-    {#        {% endfor %}#}
-    {#        <input type='submit' class='btn btn-default' value='Submit Comment'/>#}
-    {#    </form>#}
-    {#        </div>#}
-    {#    </div>#}
-    {#        {% else %}#}
-    {#        The specified post does not exist!#}
-    {#        {% endif %}#}
-    {#</div>#}
     <style>
             .column {
               float: left;
@@ -78,7 +16,7 @@
 
         {% if post %}
         <div class='row'>
-                                <h1 class="entry__header-title display-1" align="center">
+                                <h1 class="entry__header-title display-1" align="center" style="color: #fc7070;">
                                     {{ post.title }}
                                 </h1>
                                 <ul class="entry__header-meta" align="center">
@@ -93,15 +31,15 @@
         <div class="row">
             <div class="column">
                         {% if post.image %}
-                            <img src="{{ post.image.url }}" sizes="(max-width: 1000px) 100vw, 1000px" alt="">
+                            <img src="{{ post.image.url }}" style="width: 100%; height: 400px;" alt="">
                         {% else %}
                             <img src="{% static 'img/thumbs/featured/adopt.jpg' %}"
-                                 sizes="(max-width: 1000px) 100vw, 1000px" alt="">
+                            style="width: 100%; height: 400px;" alt="">
                         {% endif %}      
             </div> <!-- s-entry__main -->
             <div class="column" align="center">
                     <div id="googleMap" style="width:400px;height:400px;"></div>
-                    <div id='id_location'>{{ post.location }}</div>
+                    <strong><div id='id_location' style="color:#fc7070;">{{ post.location }}</div></strong>
                 </div>
         </div>
             <div class="row">
@@ -112,8 +50,8 @@
     
                             <div class="entry__author-about">
                                 <h5 class="entry__author-name">
-                                    <span>Posted by</span>
-                                    <a href="#0">{{ post.userId.get_username }}</a>
+                                    <span style="color: #fc7070;">Posted by</span>
+                                    <a href="#0" >{{ post.userId.get_username }}</a>
                                 </h5>
     
                                 <div class="entry__author-desc">
@@ -124,16 +62,15 @@
                             </div>
                         </div>
                 </div>
-        <div class="row">
-                <div id="comments" class="row">
-                    <div class="col-full">
-                        <h3 class="h2">Comments</h3>
+                <br>
+        <div class="row" style="border: 1px solid rgba(0, 0, 0, 0.1); background-color: #ffffffc4;">
+                        <h3 style="color: #fc7070;">Comments</h3>
                         {% if comments %}
                             <!-- START commentlist -->
-                            <ol>
+                            <ol class="commentlist" style="background-color: #ffffffc4;">
                                 {% for comment in comments %}
 
-                                    <li>
+                                    <li class="depth-1 comment" style="background-color: #ffffffc4;">
 
                                         <div class="comment__avatar">
                                             {% if post.userId.userprofile.photo %}
@@ -147,7 +84,7 @@
                                         <div class="comment__content">
 
                                             <div class="comment__info">
-                                                <div class="comment__author">{{ comment.userId.get_username }}</div>
+                                                <div class="comment__author" style="color: #fc7070;">{{ comment.userId.get_username }}</div>
 
                                                 <div class="comment__meta">
                                                     <div class="comment__time">{{ comment.date }}</div>
@@ -157,7 +94,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="comment__text">
+                                            <div class="comment__text" >
                                                 <p>{{ comment.text }}</p>
                                             </div>
 
@@ -170,10 +107,12 @@
                             </ol>
                             <!-- END commentlist -->
                         {% else %}
-                            <strong>No comments currently in this post.</strong>
+                            <strong style="margin-left: 15px">No comments currently in this post.</strong>
                         {% endif %}
-                    </div> <!-- end col-full -->
-                </div> <!-- end comments -->
+                
+        </div>
+        <br>
+        <div class=row>
                     <!-- START respond -->
                     <div id="respond" class="col-full">
 
@@ -182,14 +121,13 @@
                         {#                        <a href="{% url 'index' %}">Click here to reurn to the homepage.</a><br/>#}
                         {#                    {% else %}#}
 
-                        <h2 class="h2" align=center>Add Comment</h2>
+                        <h2 class="h2" align=center style="color: #fc7070;">Add Comment</h2>
 
                         <form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
                             {% for field in comment_form %}
-                                {#                                {% if field.id_for_label != 'id_text' %}#}
                                 <fieldset>
 
-                                    <div class="message form-field">
+                                    <div class="message form-field" style="border: 1px solid #fc7070; background-color: #ffffff8e;">
 
                                         {{ field.errors }}
                                         {{ field }}
@@ -199,14 +137,15 @@
                                     </div>
 
                                 </fieldset>
-                                {#                                {% endif %}#}
                             {% endfor %}
+                            
                             <input name="submit" id="submit"
                                    class="btn btn--primary btn-wide btn--large full-width"
                                    value="Add Comment" type="submit">
                         </form>
 
                     </div>
+                </div>
                     <!-- END respond-->
         </div>
         {% else %}
@@ -224,6 +163,10 @@
                     scrollwheel: true,
                     // center: { lat: -34.397, lng: 150.644 }
                 });
+
+                var infowindow = new google.maps.InfoWindow({
+                    content: address
+                });
     
                 // var address = document.getElementById('address').value;
     
@@ -232,11 +175,16 @@
                         map.setCenter(results[0].geometry.location);
                         var marker = new google.maps.Marker({
                             map: map,
-                            position: results[0].geometry.location
+                            position: results[0].geometry.location,
+                            title: results[0].address
                         });
                     } else {
                         alert('Geocode was not successful for the following reason: ' + status);
                     }
+                    // Attach it to the marker we've just added
+                    google.maps.event.addListener(marker, 'click', function() {
+                        infowindow.open(map,marker);
+                    })
                 })
             }
         </script>
