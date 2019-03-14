@@ -162,6 +162,12 @@ def user_logout(request):
     return HttpResponseRedirect(reverse('index'))
 
 
+@login_required
+def user_profile(request):
+    response = render(request, 'web_app/profile.html')
+    return response
+
+
 # A helper method
 def get_server_side_cookie(request, cookie, default_val=None):
     val = request.session.get(cookie)
@@ -254,6 +260,5 @@ def show_post(request, postId):
                                                  'comments': comments})
 
 def map(request):
-    
     response = render(request, 'web_app/map.html')
     return response

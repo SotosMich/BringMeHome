@@ -2,10 +2,10 @@
 {% load static %}
 <html class="no-js" lang="en">
 <style>
-#map {
-  height: 100%;
-  width: 100%;
-}
+    #map {
+        height: 100%;
+        width: 100%;
+    }
 </style>
 <head>
 
@@ -32,7 +32,7 @@
 </head>
 
 <body id="top">
-
+{##}
 {#<!-- preloader-->#}
 {#<div id="preloader">#}
 {#    <div id="loader" class="dots-fade">#}
@@ -59,18 +59,19 @@
         <h2 class="header__nav-heading h6">Navigate to</h2>
 
         <ul class="header__nav">
-            <li class="current"><a href="{% url 'index' %}" title="">Home</a></li>
-            <li class="has-children">
-                <a href="#0" title="">Post</a>
-                <ul class="sub-menu">
-                    <li><a href="{% url 'add_post' %}">Found a dog</a></li>
-                    <li><a href="{% url 'add_post' %}">Lost a dog</a></li>
-                    <li><a href="{% url 'add_post' %}">Adopt a dog</a></li>
-                </ul>
+            <li><a href="{% url 'index' %}" title="">Home</a></li>
+            <li>
+                <a href="{% url 'add_post' %}" title="">Post</a>
+                {#                <ul class="sub-menu">#}
+                {#                    <li><a href="{% url 'add_post' %}">Found a dog</a></li>#}
+                {#                    <li><a href="{% url 'add_post' %}">Lost a dog</a></li>#}
+                {#                    <li><a href="{% url 'add_post' %}">Adopt a dog</a></li>#}
+                {#                </ul>#}
             </li>
             <li><a href="{% url 'about' %}" title="">About</a></li>
             {% if user.is_authenticated %}
                 <li><a href="{% url 'logout' %}">Logout</a></li>
+                <li><a href="{% url 'profile' %}">Profile</a></li>
             {% else %}
                 <li><a href="{% url 'login' %}">Sign In</a></li>
                 <li><a href="{% url 'register' %}">Sign Up</a></li>

@@ -72,7 +72,6 @@ class PostForm(forms.ModelForm):
     CHOICES = [
         ('1', 'Found'),
         ('2', 'Lost'),
-        ('3', 'Adopt'),
     ]
 
     status = forms.CharField(label='Post Type', widget=forms.Select(choices=CHOICES))
