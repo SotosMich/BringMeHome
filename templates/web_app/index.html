@@ -19,9 +19,9 @@
                                  style="background-image:url({% static 'img/thumbs/featured/found.jpg' %});"></div>
 
                             <div class="entry__content">
-                                <span class="entry__category"><a href="#0">Found a dog</a></span>
+                                <span class="entry__category"><a href="{% url 'add_post' %}">Found a dog</a></span>
 
-                                <h1><a href="#0" title="">If you have found a stray dog, help it find a home.</a></h1>
+                                <h1><a href="{% url 'add_post' %}" title="">If you have found a stray dog, help it find a home.</a></h1>
 
                             </div> <!-- end entry__content -->
 
@@ -36,9 +36,9 @@
                                  style="background-image:url({% static 'img/thumbs/featured/lost.jpg' %});"></div>
 
                             <div class="entry__content">
-                                <span class="entry__category"><a href="#0">Lost a dog</a></span>
+                                <span class="entry__category"><a href="{% url 'add_post' %}">Lost a dog</a></span>
 
-                                <h1><a href="#0" title="">Have you lost your pet? Let people know.</a></h1>
+                                <h1><a href="{% url 'add_post' %}" title="">Have you lost your pet? Let people know.</a></h1>
 
                             </div> <!-- end entry__content -->
 
@@ -54,9 +54,9 @@
                                  style="background-image:url({% static 'img/thumbs/featured/adopt.jpg' %});"></div>
 
                             <div class="entry__content">
-                                <span class="entry__category"><a href="#0">Adopt a dog</a></span>
+                                <span class="entry__category"><a href="{% url 'add_post' %}">Adopt a dog</a></span>
 
-                                <h1><a href="#0" title="">Are you looking for a new best friend?</a></h1>
+                                <h1><a href="{% url 'add_post' %}" title="">Are you looking for a new best friend?</a></h1>
 
                             </div> <!-- end entry__content -->
 
@@ -84,7 +84,7 @@
                                 {% if post.image %}
                                     <img src="{{ post.image.url }}">
                                 {% else %}
-                                    <img src="{% static 'img/thumbs/featured/adopt.jpg' %}">
+                                    <img src="{% static 'img/thumbs/post/no_image_available.jpeg' %}">
                                 {% endif %}
                             </a>
                             <h5><a href="/web_app/post/{{ post.postId }}">{{ post.title }}</h5>

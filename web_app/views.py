@@ -164,8 +164,11 @@ def user_logout(request):
 
 @login_required
 def user_profile(request):
-    response = render(request, 'web_app/profile.html')
-    return response
+
+    return render(request,
+                  'web_app/profile.html',
+                  {'user_form': user_form,
+                   'profile_form': profile_form})
 
 
 # A helper method

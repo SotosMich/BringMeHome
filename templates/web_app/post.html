@@ -33,7 +33,7 @@
                         {% if post.image %}
                             <img src="{{ post.image.url }}" style="width: 100%; height: 400px;" alt="">
                         {% else %}
-                            <img src="{% static 'img/thumbs/featured/adopt.jpg' %}"
+                            <img src="{% static 'img/thumbs/post/no_image_available.jpeg' %}"
                             style="width: 100%; height: 400px;" alt="">
                         {% endif %}      
             </div> <!-- s-entry__main -->
@@ -64,7 +64,7 @@
                 </div>
                 <br>
         <div class="row" style="border: 1px solid rgba(0, 0, 0, 0.1); background-color: #ffffffc4;">
-                        <h3 style="color: #fc7070;">Comments</h3>
+                        <h3 style="color: #fc7070; margin-left: 15px">Comments</h3>
                         {% if comments %}
                             <!-- START commentlist -->
                             <ol class="commentlist" style="background-color: #ffffffc4;">
