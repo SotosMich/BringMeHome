@@ -60,6 +60,13 @@
 
         <ul class="header__nav">
             <li><a href="{% url 'index' %}" title="">Home</a></li>
+        <li class="has-children">
+                    <a>Archive</a>
+                    <ul class="sub-menu">
+                        <li><a href="{% url 'found_posts' %}">Found Dogs</a></li>
+                        <li><a href="{% url 'lost_posts' %}">Lost Dogs</a></li>
+                    </ul>
+                </li>
             <li>
                 <a href="{% url 'add_post' %}" title="">Post</a>
             </li>
@@ -147,7 +154,7 @@
 
 
 <!-- Java Script-->
-<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/jquery-3.3.1.js' %}"></script>
 <script src="{% static 'js/plugins.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
 

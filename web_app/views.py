@@ -39,6 +39,22 @@ def index(request):
     return response
 
 
+def found_posts(request):
+    post_list = Post.objects.order_by('-date').filter(status=1)
+    context_dict = {'posts': post_list}
+
+    response = render(request, 'web_app/found_posts.html', context_dict)
+    return response
+
+
+def lost_posts(request):
+    post_list = Post.objects.order_by('-date').filter(status=2)
+    context_dict = {'posts': post_list}
+
+    response = render(request, 'web_app/lost_posts.html', context_dict)
+    return response
+
+
 def about(request):
     request.session.set_test_cookie()
 
@@ -208,7 +224,6 @@ def view_user(request, userID):
         profile = User.objects.get(pk=userID)
     args = {'profile': profile}
     return render(request, 'web_app/accounts/user.html', args)
-
 
 @login_required
 def view_profile(request, pk=None):

@@ -1,0 +1,46 @@
+{% load static %}
+<div class="row entries-wrap wide">
+    <div class="entries">
+
+        {% if posts %}
+
+            {% for post in posts %}
+
+                <article class="col-block">
+
+                    <div class="item-entry" data-aos="zoom-in">
+                        <div class="item-entry__thumb">
+                            <a href="/web_app/post/{{ post.postId }}" class="item-entry__thumb-link">
+                                {% if post.image %}
+                                    <img src="{{ post.image.url }}">
+                                {% else %}
+                                    <img src="{% static 'img/thumbs/post/no_image_available.jpeg' %}">
+                                {% endif %}
+                            </a>
+                        </div>
+
+                        <div class="item-entry__text">
+                            <div class="item-entry__cat">
+                                <a href="/web_app/post/{{ post.postId }}">{{ post.title }}</a>
+                            </div>
+
+                            <h1 class="item-entry__title"><a
+                                    href="/web_app/post/{{ post.postId }}">{{ post.text }}</a>
+                            </h1>
+
+                            <div class="item-entry__date">
+                                <a>{{ post.date }}</a>
+                            </div>
+                        </div>
+                    </div> <!-- item-entry -->
+
+                </article> <!-- end article -->
+
+            {% endfor %}
+
+        {% else %}
+            <strong style="margin-left: 12px">There are no posts right now.</strong>
+        {% endif %}
+
+    </div> <!-- end entries -->
+</div> <!-- end entries-wrap -->

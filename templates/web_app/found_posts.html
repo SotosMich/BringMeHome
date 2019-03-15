@@ -1,0 +1,23 @@
+{% extends 'web_app/bbc.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Index
+{% endblock %}
+{% block body_block %}
+
+
+
+    <!-- s-content
+================================================== -->
+    <section class="s-content" style="padding-top: 100px">
+
+        <h2 style="margin-left: 40px; color: #fc7070">Found Dogs</h2>
+
+        {% include "web_app/post_list.html" %}
+
+    </section> <!-- end s-content -->
+
+    <div id="includedContent"></div>
+
+{% endblock %}
