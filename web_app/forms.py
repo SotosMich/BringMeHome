@@ -3,12 +3,17 @@ from django.contrib.auth.models import User
 from web_app.models import UserProfile, Post, Comment
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
+
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'username', 'email', 'password')
+        help_texts = {
+            'username': None,
+            'email': None,
+        }
 
 
 class UserProfileForm(forms.ModelForm):
@@ -18,13 +23,6 @@ class UserProfileForm(forms.ModelForm):
 
 
 class PostForm(forms.ModelForm):
-    # date = forms.DateTimeField(
-    #     input_formats=['%d/%m/%Y %H:%M'],
-    #     widget=forms.DateTimeInput(attrs={
-    #         'class': 'form-control datetimepicker-input',
-    #         'data-target': '#datetimepicker1'
-    #     })
-    # )
     CHOICES = [
         ('1', 'Found'),
         ('2', 'Lost'),

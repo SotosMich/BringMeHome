@@ -12,9 +12,9 @@
                         <div class="item-entry__thumb">
                             <a href="/web_app/post/{{ post.postId }}" class="item-entry__thumb-link">
                                 {% if post.image %}
-                                    <img src="{{ post.image.url }}">
+                                    <img src="{{ post.image.url }}" style="height: 320px; width: 100%">
                                 {% else %}
-                                    <img src="{% static 'img/thumbs/post/no_image_available.jpeg' %}">
+                                    <img src="{% static 'img/thumbs/post/no_image_available.jpeg' %}" style="height: 320px; width: 100%">
                                 {% endif %}
                             </a>
                         </div>
@@ -27,6 +27,10 @@
                             <h1 class="item-entry__title"><a
                                     href="/web_app/post/{{ post.postId }}">{{ post.text }}</a>
                             </h1>
+
+                            <div class="item-entry__cat">
+                                <a href="/web_app/user/{{ post.userId.id }}">{{ post.userId }}</a>
+                            </div>
 
                             <div class="item-entry__date">
                                 <a>{{ post.date }}</a>

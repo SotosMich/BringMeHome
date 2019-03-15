@@ -16,7 +16,7 @@
             <div class="column">
                 {% if post_added %}
                     <strong>Thank you for posting!</strong><br/>
-                    <a href="{% url 'index' %}">Click here to reurn to the homepage.</a><br/>
+                    <a href="{% url 'index' %}">Click here to return to the homepage.</a><br/>
                 {% else %}
                     <h1>Add a Post</h1>
                     <form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}

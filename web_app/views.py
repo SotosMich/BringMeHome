@@ -13,6 +13,7 @@ from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
+
 # Create your views here.
 
 
@@ -93,7 +94,7 @@ def register(request):
             # we set commit=False. This delays saving the model
             # until we're ready to avoid integrity problems.
             profile = profile_form.save(commit=False)
-            profile.user = profile.user
+            profile.user = user
             # Did the user provide a profile picture?
             # If so, we need to get it from the input form and
             # put it in the UserProfile model.
@@ -162,6 +163,18 @@ def user_login(request):
         # blank dictionary object...
         return render(request, 'web_app/login.html', {})
 
+
+@login_required
+def user_delete(request):
+    user = request.user
+    user.delete()
+    deleted = True
+
+    return render(request,
+                  'web_app/accounts/profile.html',
+                  {'deleted': deleted})
+
+
 # @login_required
 # def edit_profile(request):
 #     if request.method == 'POST':
@@ -177,7 +190,7 @@ def user_login(request):
 
 # def edit_profile(request, pk=None):
 #     updated = False
-    
+
 #     if request.method == 'POST':
 #         profile_form = EditProfileForm(data=request.POST)
 #         if profile_form.is_valid():
@@ -203,13 +216,23 @@ def user_login(request):
 #         args = {'user': user}
 #         return render(request, 'web_app/accounts/profile.html', args)
 
+
 @login_required
-def restricted(request):
-    return HttpResponse("Since you're logged in, you can see this text!")
+def edit_profile(request):
 
+    if request.method == 'POST':
+        profile_form = UserProfileForm(data=request.POST)
 
-# Use the login_required() decorator to ensure only those logged in can
-# access the view.
+        if profile_form.is_valid():
+            profile = profile_form.save(commit=False)
+            profile.save()
+        else:
+            print(profile_form.errors)
+    else:
+        profile_form = UserProfileForm()
+
+        return HttpResponseRedirect('web_app/accounts/profile.html')
+
 
 
 @login_required
@@ -219,11 +242,13 @@ def user_logout(request):
     # Take the user back to the homepage.
     return HttpResponseRedirect(reverse('index'))
 
+
 def view_user(request, userID):
     if userID:
         profile = User.objects.get(pk=userID)
     args = {'profile': profile}
     return render(request, 'web_app/accounts/user.html', args)
+
 
 @login_required
 def view_profile(request, pk=None):
@@ -233,6 +258,7 @@ def view_profile(request, pk=None):
         user = request.user
     args = {'user': user}
     return render(request, 'web_app/accounts/profile.html', args)
+
 
 # A helper method
 def get_server_side_cookie(request, cookie, default_val=None):
@@ -324,6 +350,7 @@ def show_post(request, postId):
     return render(request, 'web_app/post.html', {'post': post,
                                                  'comment_form': form,
                                                  'comments': comments})
+
 
 def map(request):
     response = render(request, 'web_app/map.html')

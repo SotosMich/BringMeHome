@@ -1040,7 +1040,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 }
 
 
-/* =================================================================== 
+/* ===================================================================
  * # additional components
  *
  * ------------------------------------------------------------------- */
@@ -1638,7 +1638,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 }
 
 .entries .item-entry__title a {
-  color: #000000; 
+  color: #000000;
   border-bottom: 1px solid transparent;
 }
 
@@ -2276,7 +2276,7 @@ body.search-is-visible {
     overflow-y: auto;
   }
 
-  .header__nav-wrap .header__nav-heading, 
+  .header__nav-wrap .header__nav-heading,
   .header__nav-wrap .close-mobile-menu {
     display: block;
   }
@@ -3480,9 +3480,9 @@ footer [class*="s-footer__"] > .row [class*="col-"]:last-child {
     line-height: 5.4rem;
   }
 
-  .go-top a:hover, 
-  .go-top a:focus, 
-  .go-top a:visited:hover, 
+  .go-top a:hover,
+  .go-top a:focus,
+  .go-top a:visited:hover,
   .go-top a:visited:focus {
     height: 6rem;
   }
