@@ -8,3 +8,4 @@ BringMeHome/__pycache__/
 /web_app/migrations
 media/post_images
 media/profile_images
+.vscode/settings.json

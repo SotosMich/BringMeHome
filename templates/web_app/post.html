@@ -23,7 +23,7 @@
                                     <li class="date">{{ post.date }}</li>
                                     <li class="byline">
                                         By
-                                        <a href="#0">{{ post.userId.get_username }}</a>
+                                        <a href="../../user/{{ post.userId.id }}">{{ post.userId.get_username }}</a>
                                     </li>
                                 </ul>
 
@@ -51,7 +51,7 @@
                             <div class="entry__author-about">
                                 <h5 class="entry__author-name">
                                     <span style="color: #fc7070;">Posted by</span>
-                                    <a href="#0" >{{ post.userId.get_username }}</a>
+                                    <a href="../../user/{{ post.userId.id }}" >{{ post.userId.get_username }}</a>
                                 </h5>
     
                                 <div class="entry__author-desc">
@@ -84,7 +84,9 @@
                                         <div class="comment__content">
 
                                             <div class="comment__info">
-                                                <div class="comment__author" style="color: #fc7070;">{{ comment.userId.get_username }}</div>
+                                                <a href="../../user/{{ comment.userId.id }}">
+                                                    <div class="comment__author" style="color: #fc7070;">{{ comment.userId.get_username }}</div>
+                                                </a>
 
                                                 <div class="comment__meta">
                                                     <div class="comment__time">{{ comment.date }}</div>

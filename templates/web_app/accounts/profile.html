@@ -1,0 +1,71 @@
+{% extends 'web_app/bbc.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+Register
+{% endblock %}
+
+{% block body_block %}
+<section class="s-extra">
+    <h1 style="margin-left: 50%">Profile</h1>
+    
+    {% if user == None %}
+    <strong>No user provided</strong>
+    {% else %}
+    <div class="row">
+        <div class="column" style="float:left; width: 70%;">
+            <div class="container">
+                <!-- {{user.userprofile.id}} -->
+                <form id="user_form" method="post" action="{% url 'view_profile' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="input-w">
+                        <label for="id_username"
+                            style="max-width: 20%; font-size:20px; display: inline-block;">Username:</label>
+                        <input name="username" id="id_username" type="text" value="{{ user }}"
+                            style="display: inline-block; max-width: 30%; font-size:20px;" disabled>
+                    </div>
+                    <div class="input-w">
+                        <label for="id_first_name" style="max-width: 20%; font-size:20px; display: inline-block;">Last
+                            name:</label>
+                        <input name="first_name_1" id="id_first_name" type="text" value="{{ user.first_name }}"
+                            style="display: inline-block; max-width: 30%; font-size:20px;" disabled>
+                        <input name="first_name" id="id_first_name" type="hidden" value="{{ user.first_name }}"
+                            style="display: inline-block; max-width: 30%; font-size:20px;">
+                    </div>
+                    <div class="input-w">
+                        <label for="id_last_name" style="max-width: 20%; font-size:20px; display: inline-block;">First
+                            name:</label>
+                        <input name="last_name" id="id_last_name" type="text" value="{{ user.last_name }}"
+                            style="display: inline-block; max-width: 30%; font-size:20px;" disabled>
+                        <input name="last_name" id="id_last_name" type="hidden" value="{{ user.last_name }}"
+                            style="display: inline-block; max-width: 30%; font-size:20px;">
+                    </div>
+                    <div class="input-w">
+                        <label for="id_phoneNumber" style="max-width: 20%; font-size:20px; display: inline-block;">Phone
+                            Number:</label>
+                        <input name="phoneNumber" id="id_phoneNumber" type="text"
+                            value="{{ user.userprofile.phoneNumber }}"
+                            style="display: inline-block; max-width: 30%; font-size:20px;">
+                    </div>
+                    <div class="input-w">
+                        <label for="id_location"
+                            style="max-width: 20%; font-size:20px; display: inline-block;">Location/City:</label>
+                        <input name="location" size="30" id="id_location" type="text"
+                            value="{{ user.userprofile.location }}"
+                            style="display: inline-block; max-width: 30%; font-size:20px;">
+                    </div>
+
+                    <!-- <input name="submit" type="submit" value="Register"> -->
+                    <input type='Submit' class="btn btn--primary btn-wide btn--large full-width" value='Save' />
+                </form>
+            </div>
+        </div>
+        <div class="column" style="float: right; width: 25%;">
+            {% if user.userprofile.photo %}
+            <img src="{{ user.userprofile.photo.url }}" width="240" height="240">
+            {% endif %}
+        </div>
+    {% endif %}
+</section>
+
+{% endblock %}

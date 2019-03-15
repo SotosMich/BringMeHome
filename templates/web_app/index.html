@@ -89,7 +89,7 @@
                             </a>
                             <h5><a href="/web_app/post/{{ post.postId }}">{{ post.title }}</h5>
                             <section class="popular__meta">
-                                <span class="popular__author"><span>By</span> <a href="#0">{{ post.userId }}</a></span>
+                                <span class="popular__author"><span>By</span> <a href="user/{{ post.userId.id }}">{{ post.userId }}</a></span>
                                 <span class="popular__date"><span>on</span> <time
                                         datetime="2018-06-14">{{ post.date }}</time></span>
                             </section>

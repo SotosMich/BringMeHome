@@ -7,9 +7,11 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from datetime import datetime
-from web_app.models import Post
+from web_app.models import Post, User, UserProfile
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
+from django.shortcuts import render, redirect
+from django.urls import reverse
 
 # Create your views here.
 
@@ -75,7 +77,7 @@ def register(request):
             # we set commit=False. This delays saving the model
             # until we're ready to avoid integrity problems.
             profile = profile_form.save(commit=False)
-            profile.user = user
+            profile.user = profile.user
             # Did the user provide a profile picture?
             # If so, we need to get it from the input form and
             # put it in the UserProfile model.
@@ -144,6 +146,46 @@ def user_login(request):
         # blank dictionary object...
         return render(request, 'web_app/login.html', {})
 
+# @login_required
+# def edit_profile(request):
+#     if request.method == 'POST':
+#         form = EditProfileForm(request.POST, instance=request.user)
+
+#         if form.is_valid():
+#             form.save()
+#             return redirect(reverse('accounts:view_profile'))
+#     else:
+#         form = EditProfileForm(instance=request.user)
+#         args = {'form': form}
+#         return render(request, 'accounts/edit_profile.html', args)
+
+# def edit_profile(request, pk=None):
+#     updated = False
+    
+#     if request.method == 'POST':
+#         profile_form = EditProfileForm(data=request.POST)
+#         if profile_form.is_valid():
+#             change = UserProfile.objects.get(id=request.user.userprofile.id)
+#             change.endtime=datetime.now()
+#             change.save()
+#             profile = profile_form.save(commit=False)
+#             profile.save()
+#             updated = True
+#             args = {'updated': updated}
+#             # return render(request, 'web_app/accounts/profile.html', args)
+#             return HttpResponseRedirect(reverse('edit_profile'))
+#         else:
+#              updated = False
+#              args = {'updated': updated}
+#             #  return render(request, 'web_app/accounts/profile.html', args)
+#              return HttpResponseRedirect(reverse('edit_profile'))
+#     else:
+#         if pk:
+#             user = User.objects.get(pk=pk)
+#         else:
+#             user = request.user
+#         args = {'user': user}
+#         return render(request, 'web_app/accounts/profile.html', args)
 
 @login_required
 def restricted(request):
@@ -161,15 +203,21 @@ def user_logout(request):
     # Take the user back to the homepage.
     return HttpResponseRedirect(reverse('index'))
 
+def view_user(request, userID):
+    if userID:
+        profile = User.objects.get(pk=userID)
+    args = {'profile': profile}
+    return render(request, 'web_app/accounts/user.html', args)
+
 
 @login_required
-def user_profile(request):
-
-    return render(request,
-                  'web_app/profile.html',
-                  {'user_form': user_form,
-                   'profile_form': profile_form})
-
+def view_profile(request, pk=None):
+    if pk:
+        user = User.objects.get(pk=pk)
+    else:
+        user = request.user
+    args = {'user': user}
+    return render(request, 'web_app/accounts/profile.html', args)
 
 # A helper method
 def get_server_side_cookie(request, cookie, default_val=None):

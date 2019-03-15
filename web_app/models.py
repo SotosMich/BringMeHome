@@ -43,7 +43,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
     # The additional attributes we wish to include.
     phoneNumber = models.IntegerField()
-    location = models.CharField(max_length=25)
+    location = models.CharField(max_length=250)
     photo = models.ImageField(upload_to='profile_images/', blank=True)
 
     # Override the __unicode__() method to return out something meaningful!
