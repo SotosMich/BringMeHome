@@ -188,50 +188,45 @@ def user_delete(request):
 #         args = {'form': form}
 #         return render(request, 'accounts/edit_profile.html', args)
 
-# def edit_profile(request, pk=None):
-#     updated = False
-
-#     if request.method == 'POST':
-#         profile_form = EditProfileForm(data=request.POST)
-#         if profile_form.is_valid():
-#             change = UserProfile.objects.get(id=request.user.userprofile.id)
-#             change.endtime=datetime.now()
-#             change.save()
-#             profile = profile_form.save(commit=False)
-#             profile.save()
-#             updated = True
-#             args = {'updated': updated}
-#             # return render(request, 'web_app/accounts/profile.html', args)
-#             return HttpResponseRedirect(reverse('edit_profile'))
-#         else:
-#              updated = False
-#              args = {'updated': updated}
-#             #  return render(request, 'web_app/accounts/profile.html', args)
-#              return HttpResponseRedirect(reverse('edit_profile'))
-#     else:
-#         if pk:
-#             user = User.objects.get(pk=pk)
-#         else:
-#             user = request.user
-#         args = {'user': user}
-#         return render(request, 'web_app/accounts/profile.html', args)
-
-
 @login_required
 def edit_profile(request):
+    updated = False
+
+    user_profile = request.user.userprofile
 
     if request.method == 'POST':
-        profile_form = UserProfileForm(data=request.POST)
-
-        if profile_form.is_valid():
-            profile = profile_form.save(commit=False)
-            profile.save()
+        form = UserProfileForm(request.POST, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            updated = True
+            args = {'updated': updated}
+            # return render(request, 'web_app/accounts/profile.html', args)
+            return HttpResponseRedirect(reverse('edit_profile'))
         else:
-            print(profile_form.errors)
+             updated = False
+             args = {'updated': updated}
+            #  return render(request, 'web_app/accounts/profile.html', args)
+             return HttpResponseRedirect(reverse('edit_profile'))
     else:
-        profile_form = UserProfileForm()
+        args = {'user': request.user}
+        return render(request, 'web_app/accounts/profile.html', args)
 
-        return HttpResponseRedirect('web_app/accounts/profile.html')
+
+# @login_required
+# def edit_profile(request):
+
+#     if request.method == 'POST':
+#         profile_form = UserProfileForm(data=request.POST)
+
+#         if profile_form.is_valid():
+#             profile = profile_form.save(commit=False)
+#             profile.save()
+#         else:
+#             print(profile_form.errors)
+#     else:
+#         profile_form = UserProfileForm()
+
+#         return HttpResponseRedirect('web_app/accounts/profile.html')
 
 
 

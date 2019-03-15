@@ -999,6 +999,58 @@ input[type="button"].btn--primary:focus {
   border-color: #0d134a;
 }
 
+/* button save
+ * ------------------------------------------------- */
+ .btn.btn--save,
+ button.btn--save,
+ input[type="submit"].btn--save,
+ input[type="reset"].btn--save,
+ input[type="button"].btn--save {
+   background: #018321b2;
+   border-color: #018321b2;
+   color: #FFFFFF;
+ }
+ 
+ .btn.btn--primary:hover,
+ button.btn--primary:hover,
+ input[type="submit"].btn--save:hover,
+ input[type="reset"].btn--save:hover,
+ input[type="button"].btn--save:hover,
+ .btn.btn--primary:focus,
+ button.btn--primary:focus,
+ input[type="submit"].btn--save:focus,
+ input[type="reset"].btn--save:focus,
+ input[type="button"].btn--save:focus {
+   background: #0183226e;
+   border-color: #0183226e;
+ }
+
+/* button delete
+ * ------------------------------------------------- */
+ .btn.btn--delete,
+ button.btn--delete,
+ input[type="submit"].btn--delete,
+ input[type="reset"].btn--delete,
+ input[type="button"].btn--delete {
+   background: #ff3232e0;
+   border-color: #ff3232e0;
+   color: #FFFFFF;
+ }
+ 
+ .btn.btn--primary:hover,
+ button.btn--primary:hover,
+ input[type="submit"].btn--delete:hover,
+ input[type="reset"].btn--delete:hover,
+ input[type="button"].btn--delete:hover,
+ .btn.btn--primary:focus,
+ button.btn--primary:focus,
+ input[type="submit"].btn--delete:focus,
+ input[type="reset"].btn--delete:focus,
+ input[type="button"].btn--delete:focus {
+   background: #0d134a;
+   border-color: #0d134a;
+ }
+
 /* button modifiers
  * ------------------------------------------------- */
 .btn.full-width, button.full-width {
