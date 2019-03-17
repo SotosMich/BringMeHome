@@ -1,21 +1,23 @@
 {% extends 'web_app/bbc.html' %}
 {% load staticfiles %}
 {% block title_block %}
-    Login Page
+Login Page
 {% endblock %}
 {% block body_block %}
-    <section class="s-extra">
-        <div class="row">
-            <h1 style="margin-left: 0; padding-bottom: 20px; color: #fc7070">Sign In</h1>
-
-            <form id="login_form" method="post" action="{% url 'login' %}">
-                {% csrf_token %}
-                Username: <input type="text" name="username" value="" size="50"/>
-                <br/>
-                Password: <input type="password" name="password" value="" size="50"/>
-                <br/>
-                <input type="submit" value="submit"/>
-            </form>
-        </div>
-    </section>
+<section class="s-extra">
+    <div class="row">
+        <h1 style="margin-left: 0; padding-bottom: 20px; color: #fc7070">Sign In</h1>
+        <form id="login_form" method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            Username: <input type="text" name="username" value="" size="50" />
+            <br />
+            Password: <input type="password" name="password" value="" size="50" />
+            <br />
+            {% if invalid %}
+            <strong><p style="font-size:20px; margin-left: 0; padding-bottom: 20px; color: #fc0000f5">*** Invalid login details supplied</p></strong>
+            {% endif %}
+            <input type="submit" value="submit" />
+        </form>
+    </div>
+</section>
 {% endblock %}
