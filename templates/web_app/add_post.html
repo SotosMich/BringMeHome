@@ -18,7 +18,7 @@
                     <strong>Thank you for posting!</strong><br/>
                     <a href="{% url 'index' %}">Click here to return to the homepage.</a><br/>
                 {% else %}
-                    <h1>Add a Post</h1>
+                    <h1 style="margin-left: 0; padding-bottom: 20px; color: #fc7070">Add a Post</h1>
                     <form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
                         {% for field in post_form %}
                             {% if field.id_for_label == 'id_location' %}
