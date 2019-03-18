@@ -23,6 +23,7 @@ Register
                 <!-- {{user.userprofile.id}} -->
                 <form id='save' method="post" action="{% url 'edit_profile' %}" enctype="multipart/form-data">
                     {% csrf_token %}
+                    <h3>Personal Infomration</h3>
                     <div class="input-w">
                         <label for="id_username"
                             style="max-width: 20%; font-size:20px; display: inline-block;">Username:</label>
@@ -46,18 +47,25 @@ Register
                             style="display: inline-block; max-width: 30%; font-size:20px;">
                     </div>
                     <div class="input-w">
-                        <label for="id_phoneNumber" style="max-width: 20%; font-size:20px; display: inline-block;">Phone
-                            Number:</label>
-                        <input name="phoneNumber" id="id_phoneNumber" type="text"
-                            value="{{ user.userprofile.phoneNumber }}"
-                            style="display: inline-block; max-width: 30%; font-size:20px;">
-                    </div>
-                    <div class="input-w">
                         <label for="id_location"
                             style="max-width: 20%; font-size:20px; display: inline-block;">Location/City:</label>
                         <input name="location" size="30" id="id_location" type="text"
                             value="{{ user.userprofile.location }}"
                             style="display: inline-block; max-width: 30%; font-size:20px;">
+                    </div>
+                    <h3>Contact Details</h3>
+                    <div class="input-w">
+                            <i class="fa fa-phone" aria-hidden="true"></i>
+                            <input name="phoneNumber" id="id_phoneNumber" type="text"
+                                value="{{ user.userprofile.phoneNumber }}"
+                                style="display: inline-block; max-width: 30%; font-size:20px;">
+                    </div>
+                    <div class="input-w">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>    
+                            <input name="email" id="id_email" type="text"
+                                value="{{ user.email }}"
+                                style="display: inline-block; max-width: 30%; font-size:20px;" disabled>
+                                
                     </div>
 
                     <!-- <input name="submit" type="submit" value="Register"> -->

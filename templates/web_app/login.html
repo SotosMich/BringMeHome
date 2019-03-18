@@ -13,17 +13,19 @@ Login Page
             <br />
             Password: <input type="password" name="password" value="" size="50" />
             <br />
-                <button class="btn btn--facebook btn-wide btn--large">
-                    <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook
-                    </a>
-                </button><br>
-                <button class="btn btn--google btn-wide btn--large">
-                    <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google Account</a><br>
-                </button><br>
             {% if invalid %}
-            <strong><p style="font-size:20px; margin-left: 0; padding-bottom: 20px; color: #fc0000f5">*** Invalid login details supplied</p></strong>
+            <strong>
+                <p style="font-size:20px; margin-left: 0; padding-bottom: 20px; color: #fc0000f5">*** Invalid login
+                    details supplied</p>
+            </strong>
             {% endif %}
             <input type="submit" value="submit" />
+        </form>
+        <form method="link" action="{% url 'social:begin' 'google-oauth2' %}">
+            <button class="fa fa-google"></button>
+        </form>
+        <form method="link" action="{% url 'social:begin' 'facebook' %}">
+            <button class="fa fa-facebook"></button>
         </form>
     </div>
 </section>

@@ -999,58 +999,33 @@ input[type="button"].btn--primary:focus {
   border-color: #0d134a;
 }
 
-/* button facebook
- * ------------------------------------------------- */
- .btn.btn--facebook,
- button.btn--facebook,
- input[type="submit"].btn--facebook,
- input[type="reset"].btn--facebook,
- input[type="button"].btn--facebook {
-   background: #0062ffcc;
-   border-color: #ffffffec;
-   color: #FFFFFF;
- }
- 
- .btn.btn--primary:hover,
- button.btn--primary:hover,
- input[type="submit"].btn--facebook:hover,
- input[type="reset"].btn--facebook:hover,
- input[type="button"].btn--facebook:hover,
- .btn.btn--primary:focus,
- button.btn--primary:focus,
- input[type="submit"].btn--facebook:focus,
- input[type="reset"].btn--facebook:focus,
- input[type="button"].btn--facebook:focus {
-   background: #0240a3cc;
-   border-color: #0240a3cc;
- }
+/* Style all font awesome icons */
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+}
 
-/* button google
- * ------------------------------------------------- */
- .btn.btn--google,
- button.btn--google,
- input[type="submit"].btn--google,
- input[type="reset"].btn--google,
- input[type="button"].btn--google {
-   background: #ff0000cc;
-   border-color: #ffffffec;
-   color: #FFFFFF;
- }
- 
- .btn.btn--primary:hover,
- button.btn--primary:hover,
- input[type="submit"].btn--google:hover,
- input[type="reset"].btn--google:hover,
- input[type="button"].btn--google:hover,
- .btn.btn--primary:focus,
- button.btn--primary:focus,
- input[type="submit"].btn--google:focus,
- input[type="reset"].btn--google:focus,
- input[type="button"].btn--google:focus {
-   background: #d10101cc;
-   border-color: #d10101cc;
- }
+/* Add a hover effect if you want */
+.fa:hover {
+  opacity: 0.7;
+}
 
+/* Set a specific color for each brand */
+
+/* Facebook */
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+/* Twitter */
+.fa-google {
+  background: #dd4b39;
+  color: white;
+}
 
 /* button save
  * ------------------------------------------------- */
