@@ -13,6 +13,13 @@ Login Page
             <br />
             Password: <input type="password" name="password" value="" size="50" />
             <br />
+
+
+            <a href="{% url 'social:begin' 'github' %}">Login with GitHub</a><br>
+            <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google Account</a><br>
+            <a href="{% url 'social:begin' 'github' %}">Login with Microsoft Account</a><br>
+            
+
             {% if invalid %}
             <strong><p style="font-size:20px; margin-left: 0; padding-bottom: 20px; color: #fc0000f5">*** Invalid login details supplied</p></strong>
             {% endif %}

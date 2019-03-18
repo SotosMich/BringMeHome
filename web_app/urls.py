@@ -1,5 +1,7 @@
 from django.conf.urls import url
 from web_app import views
+from django.conf.urls import include
+import microsoft_auth
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -17,5 +19,8 @@ urlpatterns = [
     url(r'^user/(?P<userID>[\w\-]+)/$', views.view_user, name='view_user'),
     url(r'^delete/$', views.user_delete, name='delete'),
     url(r'^edit_profile/$', views.edit_profile, name='edit_profile'),
+    url(r'^microsoft/', include('microsoft_auth.urls', namespace='microsoft')),
+    url(r'^auth/', include('social_django.urls', namespace='social')),
+
 
 ]

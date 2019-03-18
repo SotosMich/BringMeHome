@@ -53,6 +53,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'web_app',
+    'social_django',
+    'django.contrib.sites',
+    'microsoft_auth',
 ]
 
 MIDDLEWARE = [
@@ -63,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'BringMeHome.urls'
@@ -79,10 +83,24 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media'
+                'microsoft_auth.context_processors.microsoft',
+
             ],
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+ 'social_core.backends.open_id.OpenIdAuth', 
+ 'social_core.backends.google.GoogleOpenId',  
+ 'social_core.backends.google.GoogleOAuth2',  
+ 'django.contrib.auth.backends.ModelBackend',
+ 'social_core.backends.github.GithubOAuth2',
+ 'django.contrib.auth.backends.ModelBackend',
+ 'microsoft_auth.backends.MicrosoftAuthenticationBackend',
+ 
+)
+
 
 WSGI_APPLICATION = 'BringMeHome.wsgi.application'
 
@@ -141,3 +159,19 @@ USE_TZ = True
 
 #STATIC_PATH = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='975665165340-gefeq8m0qiam2eknbi73pl24pjurnv01.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'hdpPOCrCFtAcPq8JfkuCIASC'
+
+SOCIAL_AUTH_GITHUB_KEY = 'cbb6be6724545599fe16'
+SOCIAL_AUTH_GITHUB_SECRET = 'a82754e915e7f3fb1c8b30c63231c6edaa1afae7'
+
+
+MICROSOFT_AUTH_LOGIN_TYPE = 'ma'
+MICROSOFT_AUTH_CLIENT_ID = 'your-client-id-from-apps.dev.microsoft.com'
+MICROSOFT_AUTH_CLIENT_SECRET = 'your-client-secret-from-apps.dev.microsoft.com'
