@@ -21,7 +21,7 @@ Register
         <div class="column" style="float:left; width: 70%;">
             <div class="container">
                 <!-- {{user.userprofile.id}} -->
-                <form method="post" action="{% url 'edit_profile' %}" enctype="multipart/form-data">
+                <form id='save' method="post" action="{% url 'edit_profile' %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="input-w">
                         <label for="id_username"
@@ -61,13 +61,13 @@ Register
                     </div>
 
                     <!-- <input name="submit" type="submit" value="Register"> -->
-                    <input type='Submit' onclick="JSalert();" class="btn btn--save btn-wide btn--large full-width"
-                        value='Save' />
+                    <input type='button' onclick="JSalert(this.form);"
+                        class="btn btn--save btn-wide btn--large full-width" value='Save' />
                 </form>
 
-                <form method="post" action="{% url 'delete' %}" enctype="multipart/form-data">
+                <form id="deletion" method="post" action="{% url 'delete' %}" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <input type='Submit' class="btn btn--delete btn-wide btn--large full-width"
+                    <input type='button' onclick="JSalert(this.form);" class="btn btn--delete btn-wide btn--large full-width"
                         value='Delete Profile' />
                 </form>
             </div>
@@ -91,27 +91,51 @@ Register
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOwO2A_hmXFVDvjhz5Ygv9m-ZvR1_gYcM&libraries=places&callback=initMap">
     </script>
 <script type="text/javascript">
-    function JSalert(){
-    swal({
-      title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this imaginary file!",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    })
-    .then((willDelete) => {
-      if (willDelete) {
-        swal("Poof! Your imaginary file has been deleted!", {
-          icon: "success",
-        }).then(function() {
-          return true; // <--- submit form programmatically
-        });
-      } else {
-        swal("Your imaginary file is safe!").then(function() {
-          return false; // <--- submit form programmatically
-        });
-      }
-    });
+    function JSalert(form) {
+        if (form.id == 'save') {
+            swal({
+                title: "Modifications",
+                text: "Are you sure that you want to make these changes on your profile?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        swal("Your personal infomration has been changed!", {
+                            icon: "success",
+                        }).then(function () {
+                            form.submit(); // <--- submit form programmatically
+                        });
+                    } else {
+                        swal("Changes discarded!").then(function () {
+                            return false; // <--- submit form programmatically
+                        });
+                    }
+                });
+        } else if (form.id == 'deletion') {
+            swal({
+                title: "Deletion",
+                text: "Once deleted, you will not be able to log in!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        swal("You are account has been deleted! Thank you for being a member so far. We hope to see you soon!", {
+                            icon: "success",
+                        }).then(function () {
+                            form.submit(); // <--- submit form programmatically
+                        });
+                    } else {
+                        swal("Deletion discarded!").then(function () {
+                            return false; // <--- submit form programmatically
+                        });
+                    }
+                });
+        }
+
     }
-    </script>
+</script>
 {% endblock %}
