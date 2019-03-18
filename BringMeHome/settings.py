@@ -55,7 +55,6 @@ INSTALLED_APPS = [
     'web_app',
     'social_django',
     'django.contrib.sites',
-    'microsoft_auth',
 ]
 
 MIDDLEWARE = [
@@ -82,23 +81,20 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.media'
-                'microsoft_auth.context_processors.microsoft',
-
+                'django.template.context_processors.media',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
 
 AUTHENTICATION_BACKENDS = (
- 'social_core.backends.open_id.OpenIdAuth', 
- 'social_core.backends.google.GoogleOpenId',  
- 'social_core.backends.google.GoogleOAuth2',  
- 'django.contrib.auth.backends.ModelBackend',
- 'social_core.backends.github.GithubOAuth2',
- 'django.contrib.auth.backends.ModelBackend',
- 'microsoft_auth.backends.MicrosoftAuthenticationBackend',
- 
+    'social_core.backends.open_id.OpenIdAuth',
+    'social_core.backends.google.GoogleOpenId',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 
@@ -161,17 +157,13 @@ USE_TZ = True
 STATIC_URL = '/static/'
 SITE_ID = 1
 
+LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+LOGOUT_URL = '/logout'
+LOGOUT_REDIRECT_URL = '/login'
 
-
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='975665165340-gefeq8m0qiam2eknbi73pl24pjurnv01.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '975665165340-gefeq8m0qiam2eknbi73pl24pjurnv01.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'hdpPOCrCFtAcPq8JfkuCIASC'
 
-SOCIAL_AUTH_GITHUB_KEY = 'cbb6be6724545599fe16'
-SOCIAL_AUTH_GITHUB_SECRET = 'a82754e915e7f3fb1c8b30c63231c6edaa1afae7'
-
-
-MICROSOFT_AUTH_LOGIN_TYPE = 'ma'
-MICROSOFT_AUTH_CLIENT_ID = 'your-client-id-from-apps.dev.microsoft.com'
-MICROSOFT_AUTH_CLIENT_SECRET = 'your-client-secret-from-apps.dev.microsoft.com'
+SOCIAL_AUTH_FACEBOOK_KEY = '306846303326478'        # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = 'f0e4c2d151ae06269642f192cd46bfdf'  # App Secret
