@@ -181,10 +181,22 @@ def user_delete(request):
 def edit_profile(request):
     updated = False
 
-    user_profile = request.user.userprofile
-
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, instance=user_profile)
+        if(request.POST['location']):
+            location = request.POST['location']
+        else:
+            location = None
+        
+        if(request.POST['phoneNumber']):
+            phoneNumber = request.POST['phoneNumber']
+        else:
+            phoneNumber = None
+
+        user = request.user
+        user.profile, c = UserProfile.objects.get_or_create(user=user)
+        user.profile.location = location
+        user.profile.phoneNumber = phoneNumber
+        form = UserProfileForm(request.POST, instance=user.profile)
         if form.is_valid():
             form.save()
             updated = True

@@ -70,7 +70,9 @@ Register
                     <!-- <input name="submit" type="submit" value="Register"> -->
                     <input type='button' onclick="JSalert(this.form);"
                         class="btn btn--save btn-wide btn--large full-width" value='Save' />
+                        <p>***Only location and phone number can be changed through this form.<br>For further information or requests please contact us.</p>
                 </form>
+
 
                 <form id="deletion" method="post" action="{% url 'delete' %}" enctype="multipart/form-data">
                     {% csrf_token %}
