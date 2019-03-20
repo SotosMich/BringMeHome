@@ -47,10 +47,5 @@ class UserProfile(models.Model):
     location = models.CharField(max_length=250, default="Athens, Greece")
     photo = models.ImageField(upload_to='profile_images/', blank=True)
 
-    @receiver(post_save, sender=User)
-    def create_user_profile(sender, instance, created, **kwargs):
-        if created:
-            UserProfile.objects.create(user=instance).save()
-
     def __str__(self):
         return str(self.user)
