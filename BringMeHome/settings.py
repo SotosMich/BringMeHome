@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'web_app',
+    'social_django',
+    'django.contrib.sites',
 ]
 
 MIDDLEWARE = [
@@ -63,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'BringMeHome.urls'
@@ -78,11 +81,22 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.media'
+                'django.template.context_processors.media',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.open_id.OpenIdAuth',
+    'social_core.backends.google.GoogleOpenId',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 
 WSGI_APPLICATION = 'BringMeHome.wsgi.application'
 
@@ -141,3 +155,15 @@ USE_TZ = True
 
 #STATIC_PATH = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+SITE_ID = 1
+
+LOGIN_URL = '/web_app/login'
+LOGIN_REDIRECT_URL = '/web_app/'
+LOGOUT_URL = '/web_app/logout'
+LOGOUT_REDIRECT_URL = '/web_app/login'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '975665165340-gefeq8m0qiam2eknbi73pl24pjurnv01.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'hdpPOCrCFtAcPq8JfkuCIASC'
+
+SOCIAL_AUTH_FACEBOOK_KEY = '2406682056273723'        # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = 'e2631da21272ec165b2aeed47d696940'  # App Secret

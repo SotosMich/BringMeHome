@@ -1,4 +1,4 @@
-{% extends 'web_app/bbc.html' %}
+{% extends 'web_app/base.html' %}
 {% load staticfiles %}
 
 {% block title_block %}
@@ -23,6 +23,7 @@ Register
                 <!-- {{user.userprofile.id}} -->
                 <form id='save' method="post" action="{% url 'edit_profile' %}" enctype="multipart/form-data">
                     {% csrf_token %}
+                    <h3>Personal Infomration</h3>
                     <div class="input-w">
                         <label for="id_username"
                             style="max-width: 20%; font-size:20px; display: inline-block;">Username:</label>
@@ -30,7 +31,7 @@ Register
                             style="display: inline-block; max-width: 30%; font-size:20px;" disabled>
                     </div>
                     <div class="input-w">
-                        <label for="id_first_name" style="max-width: 20%; font-size:20px; display: inline-block;">Last
+                        <label for="id_first_name" style="max-width: 20%; font-size:20px; display: inline-block;">First
                             name:</label>
                         <input name="first_name_1" id="id_first_name" type="text" value="{{ user.first_name }}"
                             style="display: inline-block; max-width: 30%; font-size:20px;" disabled>
@@ -38,18 +39,11 @@ Register
                             style="display: inline-block; max-width: 30%; font-size:20px;">
                     </div>
                     <div class="input-w">
-                        <label for="id_last_name" style="max-width: 20%; font-size:20px; display: inline-block;">First
+                        <label for="id_last_name" style="max-width: 20%; font-size:20px; display: inline-block;">Last
                             name:</label>
                         <input name="last_name" id="id_last_name" type="text" value="{{ user.last_name }}"
                             style="display: inline-block; max-width: 30%; font-size:20px;" disabled>
                         <input name="last_name" id="id_last_name" type="hidden" value="{{ user.last_name }}"
-                            style="display: inline-block; max-width: 30%; font-size:20px;">
-                    </div>
-                    <div class="input-w">
-                        <label for="id_phoneNumber" style="max-width: 20%; font-size:20px; display: inline-block;">Phone
-                            Number:</label>
-                        <input name="phoneNumber" id="id_phoneNumber" type="text"
-                            value="{{ user.userprofile.phoneNumber }}"
                             style="display: inline-block; max-width: 30%; font-size:20px;">
                     </div>
                     <div class="input-w">
@@ -59,16 +53,31 @@ Register
                             value="{{ user.userprofile.location }}"
                             style="display: inline-block; max-width: 30%; font-size:20px;">
                     </div>
+                    <h3>Contact Details</h3>
+                    <div class="input-w">
+                        <i class="fa fa-phone" aria-hidden="true"></i>
+                        <input name="phoneNumber" id="id_phoneNumber" type="text"
+                            value="{{ user.userprofile.phoneNumber }}"
+                            style="display: inline-block; max-width: 30%; font-size:20px;">
+                    </div>
+                    <div class="input-w">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <input name="email" id="id_email" type="text" value="{{ user.email }}"
+                            style="display: inline-block; max-width: 30%; font-size:20px;" disabled>
+
+                    </div>
 
                     <!-- <input name="submit" type="submit" value="Register"> -->
                     <input type='button' onclick="JSalert(this.form);"
                         class="btn btn--save btn-wide btn--large full-width" value='Save' />
+                        <p>***Only location and phone number can be changed through this form.<br>For further information or requests please contact us.</p>
                 </form>
+
 
                 <form id="deletion" method="post" action="{% url 'delete' %}" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <input type='button' onclick="JSalert(this.form);" class="btn btn--delete btn-wide btn--large full-width"
-                        value='Delete Profile' />
+                    <input type='button' onclick="JSalert(this.form);"
+                        class="btn btn--delete btn-wide btn--large full-width" value='Delete Profile' />
                 </form>
             </div>
         </div>
@@ -81,61 +90,8 @@ Register
         {% endif %}
     </div>
 </section>
-<script>
-    function initMap() {
-        var location_input = document.getElementById('id_location');
-        var autocomplete = new google.maps.places.Autocomplete(location_input);
-    };
-</script>
+<script type='text/javascript'>setPage('profile')</script>
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOwO2A_hmXFVDvjhz5Ygv9m-ZvR1_gYcM&libraries=places&callback=initMap">
     </script>
-<script type="text/javascript">
-    function JSalert(form) {
-        if (form.id == 'save') {
-            swal({
-                title: "Modifications",
-                text: "Are you sure that you want to make these changes on your profile?",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        swal("Your personal infomration has been changed!", {
-                            icon: "success",
-                        }).then(function () {
-                            form.submit(); // <--- submit form programmatically
-                        });
-                    } else {
-                        swal("Changes discarded!").then(function () {
-                            return false; // <--- submit form programmatically
-                        });
-                    }
-                });
-        } else if (form.id == 'deletion') {
-            swal({
-                title: "Deletion",
-                text: "Once deleted, you will not be able to log in!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        swal("You are account has been deleted! Thank you for being a member so far. We hope to see you soon!", {
-                            icon: "success",
-                        }).then(function () {
-                            form.submit(); // <--- submit form programmatically
-                        });
-                    } else {
-                        swal("Deletion discarded!").then(function () {
-                            return false; // <--- submit form programmatically
-                        });
-                    }
-                });
-        }
-
-    }
-</script>
 {% endblock %}

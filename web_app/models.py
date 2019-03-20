@@ -2,7 +2,8 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 class Post(models.Model):
@@ -11,7 +12,7 @@ class Post(models.Model):
     title = models.CharField(max_length=65, default="")
     # date = models.DateTimeField(max_length=50, null=True)
     date = models.DateTimeField(auto_now_add=True)
-    text = models.CharField(max_length=256)
+    text = models.CharField(max_length=2000)
     # image = models.ImageField(upload_to='post_images/')
     image = models.ImageField(upload_to='post_images/', 
         null=True, 
@@ -42,11 +43,9 @@ class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User)
     # The additional attributes we wish to include.
-    phoneNumber = models.IntegerField()
-    location = models.CharField(max_length=250)
+    phoneNumber = models.IntegerField(default='0')
+    location = models.CharField(max_length=250, default="Athens, Greece")
     photo = models.ImageField(upload_to='profile_images/', blank=True)
 
-    # Override the __unicode__() method to return out something meaningful!
-    # Remember if you use Python 2.7.x, define __unicode__ too!
     def __str__(self):
         return str(self.user)

@@ -1,4 +1,4 @@
-{% extends 'web_app/bbc.html' %}
+{% extends 'web_app/base.html' %}
 {% load staticfiles %}
 {% block title_block %}
 Login Page
@@ -14,9 +14,18 @@ Login Page
             Password: <input type="password" name="password" value="" size="50" />
             <br />
             {% if invalid %}
-            <strong><p style="font-size:20px; margin-left: 0; padding-bottom: 20px; color: #fc0000f5">*** Invalid login details supplied</p></strong>
+            <strong>
+                <p style="font-size:20px; margin-left: 0; padding-bottom: 20px; color: #fc0000f5">*** Invalid login
+                    details supplied</p>
+            </strong>
             {% endif %}
             <input type="submit" value="submit" />
+        </form>
+        <form method="link" action="{% url 'social:begin' 'google-oauth2' %}">
+            <button class="fa fa-google"></button>
+        </form>
+        <form method="link" action="{% url 'social:begin' 'facebook' %}">
+            <button class="fa fa-facebook"></button>
         </form>
     </div>
 </section>

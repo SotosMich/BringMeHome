@@ -177,28 +177,26 @@ def user_delete(request):
                   'web_app/accounts/profile.html',
                   {'deleted': deleted})
 
-
-# @login_required
-# def edit_profile(request):
-#     if request.method == 'POST':
-#         form = EditProfileForm(request.POST, instance=request.user)
-
-#         if form.is_valid():
-#             form.save()
-#             return redirect(reverse('accounts:view_profile'))
-#     else:
-#         form = EditProfileForm(instance=request.user)
-#         args = {'form': form}
-#         return render(request, 'accounts/edit_profile.html', args)
-
 @login_required
 def edit_profile(request):
     updated = False
 
-    user_profile = request.user.userprofile
-
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, instance=user_profile)
+        if(request.POST['location']):
+            location = request.POST['location']
+        else:
+            location = None
+        
+        if(request.POST['phoneNumber']):
+            phoneNumber = request.POST['phoneNumber']
+        else:
+            phoneNumber = None
+
+        user = request.user
+        user.profile, c = UserProfile.objects.get_or_create(user=user)
+        user.profile.location = location
+        user.profile.phoneNumber = phoneNumber
+        form = UserProfileForm(request.POST, instance=user.profile)
         if form.is_valid():
             form.save()
             updated = True
@@ -213,25 +211,6 @@ def edit_profile(request):
     else:
         args = {'user': request.user}
         return render(request, 'web_app/accounts/profile.html', args)
-
-
-# @login_required
-# def edit_profile(request):
-
-#     if request.method == 'POST':
-#         profile_form = UserProfileForm(data=request.POST)
-
-#         if profile_form.is_valid():
-#             profile = profile_form.save(commit=False)
-#             profile.save()
-#         else:
-#             print(profile_form.errors)
-#     else:
-#         profile_form = UserProfileForm()
-
-#         return HttpResponseRedirect('web_app/accounts/profile.html')
-
-
 
 @login_required
 def user_logout(request):
@@ -344,7 +323,6 @@ def show_post(request, postId):
     except Post.DoesNotExist:
         post = None
 
-        # context_dict['comments'] = None
     return render(request, 'web_app/post.html', {'post': post,
                                                  'comment_form': form,
                                                  'comments': comments})
