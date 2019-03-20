@@ -19,35 +19,35 @@ def populate():
          "Status" : "1",
          "UserId": "1",
          "location" : "Glasgow",
-         "image": "media/post_images/found_dog1.jpg"},
+         "image": "post_images/found_dog1.jpg"},
 
          {"Title": "I lost my dog",
          "Text" : "I lost this dog near my home",
          "Status" : "2",
          "UserId": "1",
          "location" : "Glasgow",
-         "image": "media/post_images/lost_dog1.jpg"},
+         "image": "post_images/lost_dog1.jpg"},
 
         {"Title": "I found a dog",
          "Text" : "I found this dog on the street",
          "Status" : "1",
          "UserId": "2",
          "location" : "Glasgow",
-         "image": "media/post_images/found_dog2.jpg"},
+         "image": "post_images/found_dog2.jpg"},
 
          {"Title": "We lost our family dog",
          "Text" : "We lost our family dog in the city centre",
          "Status" : "2",
          "UserId": "1",
          "location" : "Glasgow",
-         "image": "media/post_images/lost_dog2.jpg"},
+         "image": "post_images/lost_dog2.jpg"},
 
         {"Title": "I found this dog on the city centre",
          "Text" : "I found this dog near the city centre of Glasgow",
          "Status" : "1",
          "UserId": "3",
          "location" : "Glasgow",
-         "image": "media/post_images/found_dog3.jpg"}]
+         "image": "post_images/found_dog3.jpg"}]
 
 
 

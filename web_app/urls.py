@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from web_app import views
 from django.conf.urls import include
-import microsoft_auth
+
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
