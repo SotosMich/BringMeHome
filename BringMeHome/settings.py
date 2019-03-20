@@ -157,10 +157,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 SITE_ID = 1
 
-LOGIN_URL = '/login'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_URL = '/logout'
-LOGOUT_REDIRECT_URL = '/login'
+LOGIN_URL = '/web_app/login'
+LOGIN_REDIRECT_URL = '/web_app/'
+LOGOUT_URL = '/web_app/logout'
+LOGOUT_REDIRECT_URL = '/web_app/login'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '975665165340-gefeq8m0qiam2eknbi73pl24pjurnv01.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'hdpPOCrCFtAcPq8JfkuCIASC'

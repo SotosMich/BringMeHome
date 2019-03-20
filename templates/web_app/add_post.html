@@ -1,110 +1,58 @@
-{% extends 'web_app/bbc.html' %}
+{% extends 'web_app/base.html' %}
 {% load staticfiles %}
 {% block title_block %}
-    Add Post
+Add Post
 {% endblock %}
 
 {% block body_block %}
-    <style>
-        .column {
-            float: left;
-            width: 50%;
-        }
-    </style>
-    <section class="s-extra">
-        <div class="row">
-            <div class="column">
-                {% if post_added %}
-                    <strong>Thank you for posting!</strong><br/>
-                    <a href="{% url 'index' %}">Click here to return to the homepage.</a><br/>
-                {% else %}
-                    <h1 style="margin-left: 0; padding-bottom: 20px; color: #fc7070">Add a Post</h1>
-                    <form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
-                        {% for field in post_form %}
-                            {% if field.id_for_label == 'id_location' %}
-                                <div class="fieldWrapper">
-                                    <label for="id_location">Location:</label> <input type="text" name="location"
-                                                                                      maxlength="128" required=""
-                                                                                      id="id_location"
-                                                                                      onChange="change_address(this.value);">
-                                </div>
-                            {% else %}
-                                <div class="fieldWrapper" >
-                                    {{ field.label_tag }} {{ field }}
-                                    {% if field.help_text %}
-                                        <p class="help">{{ field.help_text|safe }}</p>
-                                        {{ field.errors }}
-                                    {% endif %}
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                        <input type='submit' class="btn btn--primary btn-wide btn--large full-width" value='Submit'/>
-                    </form>
-                {% endif %}
-            </div>
+<style>
+    .column {
+        float: left;
+        width: 50%;
+    }
+</style>
+<section class="s-extra">
+    <div class="row">
+        <div class="column">
             {% if post_added %}
-
+            <strong>Thank you for posting!</strong><br />
+            <a href="{% url 'index' %}">Click here to return to the homepage.</a><br />
             {% else %}
-                <div class="column">
-                    <br><br><br><br>
-                    <div id="googleMap" style="width:500px;height:500px;"></div>
+            <h1 style="margin-left: 0; padding-bottom: 20px; color: #fc7070">Add a Post</h1>
+            <form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
+                {% for field in post_form %}
+                {% if field.id_for_label == 'id_location' %}
+                <div class="fieldWrapper">
+                    <label for="id_location">Location:</label> <input type="text" name="location" maxlength="128"
+                        required="" id="id_location" onChange="change_address(this.value);">
                 </div>
+                {% else %}
+                <div class="fieldWrapper">
+                    {{ field.label_tag }} {{ field }}
+                    {% if field.help_text %}
+                    <p class="help">{{ field.help_text|safe }}</p>
+                    {{ field.errors }}
+                    {% endif %}
+                </div>
+                {% endif %}
+                {% endfor %}
+                <input type='submit' class="btn btn--primary btn-wide btn--large full-width" value='Submit' />
+            </form>
             {% endif %}
         </div>
+        {% if post_added %}
 
-    </section>
-    <script>
-        function initMap() {
-            var location_input = document.getElementById('id_location');
-            var autocomplete = new google.maps.places.Autocomplete(location_input);
-            var address = "Glasgow";
-            var geocoder = new google.maps.Geocoder();
-            var map = new google.maps.Map(document.getElementById('googleMap'), {
-                zoom: 15,
-                scrollwheel: true,
-                // center: { lat: -34.397, lng: 150.644 }
-            });
+        {% else %}
+        <div class="column">
+            <br><br><br><br>
+            <div id="googleMap" style="width:500px;height:500px;"></div>
+        </div>
+        {% endif %}
+    </div>
 
-            // var address = document.getElementById('address').value;
-
-            geocoder.geocode({'address': address}, function (results, status) {
-                if (status === 'OK') {
-                    map.setCenter(results[0].geometry.location);
-                    var marker = new google.maps.Marker({
-                        map: map,
-                        position: results[0].geometry.location
-                    });
-                } else {
-                    alert('Geocode was not successful for the following reason: ' + status);
-                }
-            })
-        }
-
-        function change_address(address) {
-            var address = address;
-            var geocoder = new google.maps.Geocoder();
-            var map = new google.maps.Map(document.getElementById('googleMap'), {
-                zoom: 15,
-                scrollwheel: true,
-                // center: { lat: -34.397, lng: 150.644 }
-            });
-
-            // var address = document.getElementById('address').value;
-
-            geocoder.geocode({'address': address}, function (results, status) {
-                if (status === 'OK') {
-                    map.setCenter(results[0].geometry.location);
-                    var marker = new google.maps.Marker({
-                        map: map,
-                        position: results[0].geometry.location
-                    });
-                } else {
-                    alert('Geocode was not successful for the following reason: ' + status);
-                }
-            })
-        }
-    </script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOwO2A_hmXFVDvjhz5Ygv9m-ZvR1_gYcM&libraries=places&callback=initMap">
+</section>
+<script type='text/javascript'>setPage('add')</script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOwO2A_hmXFVDvjhz5Ygv9m-ZvR1_gYcM&libraries=places&callback=initMap">
     </script>
 {% endblock %}

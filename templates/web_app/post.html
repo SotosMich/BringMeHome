@@ -1,196 +1,160 @@
-{% extends 'web_app/bbc.html' %}
+{% extends 'web_app/base.html' %}
 {% load staticfiles %}
 
 {% block title_block %}
-    Post
+Post
 {% endblock %}
 {% block body_block %}
-    <style>
-            .column {
-              float: left;
-              width: 50%;
-            }
-            </style>
-    <!-- s-content-->
-    <section class="s-content s-content--top-padding s-content--narrow">
+<style>
+    .column {
+        float: left;
+        width: 50%;
+    }
+</style>
+<!-- s-content-->
+<section class="s-content s-content--top-padding s-content--narrow">
 
-        {% if post %}
-        <div class='row'>
-                                <h1 class="entry__header-title display-1" align="center" style="color: #fc7070;">
-                                    {{ post.title }}
-                                </h1>
-                                <ul class="entry__header-meta" align="center">
-                                    <li class="date">{{ post.date }}</li>
-                                    <li class="byline">
-                                        By
-                                        <a href="../../user/{{ post.userId.id }}">{{ post.userId.get_username }}</a>
-                                    </li>
-                                </ul>
+    {% if post %}
+    <div class='row'>
+        <h1 class="entry__header-title display-1" align="center" style="color: #fc7070;">
+            {{ post.title }}
+        </h1>
+        <ul class="entry__header-meta" align="center">
+            <li class="date">{{ post.date }}</li>
+            <li class="byline">
+                By
+                <a href="../../user/{{ post.userId.id }}">{{ post.userId.get_username }}</a>
+            </li>
+        </ul>
 
+    </div>
+    <div class="row">
+        <div class="column">
+            {% if post.image %}
+            <img src="{{ post.image.url }}" style="width: 100%; height: 400px;" alt="">
+            {% else %}
+            <img src="{% static 'img/thumbs/post/no_image_available.jpeg' %}" style="width: 100%; height: 400px;"
+                alt="">
+            {% endif %}
+        </div> <!-- s-entry__main -->
+        <div class="column" align="center">
+            <div id="googleMap" style="width:400px;height:400px;"></div>
+            <strong>
+                <div id='id_location' style="color:#fc7070;">{{ post.location }}</div>
+            </strong>
         </div>
-        <div class="row">
-            <div class="column">
-                        {% if post.image %}
-                            <img src="{{ post.image.url }}" style="width: 100%; height: 400px;" alt="">
-                        {% else %}
-                            <img src="{% static 'img/thumbs/post/no_image_available.jpeg' %}"
-                            style="width: 100%; height: 400px;" alt="">
-                        {% endif %}      
-            </div> <!-- s-entry__main -->
-            <div class="column" align="center">
-                    <div id="googleMap" style="width:400px;height:400px;"></div>
-                    <strong><div id='id_location' style="color:#fc7070;">{{ post.location }}</div></strong>
+    </div>
+    <div class="row">
+        <div class="entry__author">
+            {% if post.userId.userprofile.photo %}
+            <img src={{ post.userId.userprofile.photo.url }} alt="">
+            {% endif %}
+
+            <div class="entry__author-about">
+                <h5 class="entry__author-name">
+                    <span style="color: #fc7070;">Posted by</span>
+                    <a href="../../user/{{ post.userId.id }}">{{ post.userId.get_username }}</a>
+                </h5>
+
+                <div class="entry__author-desc">
+                    <p>
+                        {{ post.text }}
+                    </p>
                 </div>
+            </div>
         </div>
-            <div class="row">
-                    <div class="entry__author">
-                            {% if post.userId.userprofile.photo %}
-                                <img src={{ post.userId.userprofile.photo.url }} alt="">
-                            {% endif %}
-    
-                            <div class="entry__author-about">
-                                <h5 class="entry__author-name">
-                                    <span style="color: #fc7070;">Posted by</span>
-                                    <a href="../../user/{{ post.userId.id }}" >{{ post.userId.get_username }}</a>
-                                </h5>
-    
-                                <div class="entry__author-desc">
-                                    <p>
-                                        {{ post.text }}
-                                    </p>
-                                </div>
-                            </div>
+    </div>
+    <br>
+    <div class="row" style="border: 1px solid rgba(0, 0, 0, 0.1); background-color: #ffffffc4;">
+        <h3 style="color: #fc7070; margin-left: 15px">Comments</h3>
+        {% if comments %}
+        <!-- START commentlist -->
+        <ol class="commentlist" style="background-color: #ffffffc4;">
+            {% for comment in comments %}
+
+            <li class="depth-1 comment" style="background-color: #ffffffc4;">
+
+                <div class="comment__avatar">
+                    {% if post.userId.userprofile.photo %}
+                    <img class="avatar" src="{{ comment.userId.userprofile.photo.url }}" alt="" width="50" height="50">
+                    {% endif %}
+                </div>
+
+                <div class="comment__content">
+
+                    <div class="comment__info">
+                        <a href="../../user/{{ comment.userId.id }}">
+                            <div class="comment__author" style="color: #fc7070;">{{ comment.userId.get_username }}</div>
+                        </a>
+
+                        <div class="comment__meta">
+                            <div class="comment__time">{{ comment.date }}</div>
+                            {#                                                    <div class="comment__reply">#}
+                            {#                                                        <a class="comment-reply-link" href="#0">Reply</a>#}
+                            {#                                                    </div>#}
                         </div>
-                </div>
-                <br>
-        <div class="row" style="border: 1px solid rgba(0, 0, 0, 0.1); background-color: #ffffffc4;">
-                        <h3 style="color: #fc7070; margin-left: 15px">Comments</h3>
-                        {% if comments %}
-                            <!-- START commentlist -->
-                            <ol class="commentlist" style="background-color: #ffffffc4;">
-                                {% for comment in comments %}
-
-                                    <li class="depth-1 comment" style="background-color: #ffffffc4;">
-
-                                        <div class="comment__avatar">
-                                            {% if post.userId.userprofile.photo %}
-                                                <img class="avatar" src="{{ comment.userId.userprofile.photo.url }}"
-                                                     alt=""
-                                                     width="50"
-                                                     height="50">
-                                            {% endif %}
-                                        </div>
-
-                                        <div class="comment__content">
-
-                                            <div class="comment__info">
-                                                <a href="../../user/{{ comment.userId.id }}">
-                                                    <div class="comment__author" style="color: #fc7070;">{{ comment.userId.get_username }}</div>
-                                                </a>
-
-                                                <div class="comment__meta">
-                                                    <div class="comment__time">{{ comment.date }}</div>
-                                                    {#                                                    <div class="comment__reply">#}
-                                                    {#                                                        <a class="comment-reply-link" href="#0">Reply</a>#}
-                                                    {#                                                    </div>#}
-                                                </div>
-                                            </div>
-
-                                            <div class="comment__text" >
-                                                <p>{{ comment.text }}</p>
-                                            </div>
-
-                                        </div>
-
-                                    </li> <!-- end comment-->
-                                {% endfor %}
-
-
-                            </ol>
-                            <!-- END commentlist -->
-                        {% else %}
-                            <strong style="margin-left: 15px">No comments currently in this post.</strong>
-                        {% endif %}
-                
-        </div>
-        <br>
-        <div class=row>
-                    <!-- START respond -->
-                    <div id="respond" class="col-full">
-
-                        {#                    {% if comment_added %}#}
-                        {#                        <strong>Thank you for commenting!</strong><br/>#}
-                        {#                        <a href="{% url 'index' %}">Click here to reurn to the homepage.</a><br/>#}
-                        {#                    {% else %}#}
-
-                        <h2 class="h2" align=center style="color: #fc7070;">Add Comment</h2>
-
-                        <form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
-                            {% for field in comment_form %}
-                                <fieldset>
-
-                                    <div class="message form-field" style="border: 1px solid #fc7070; background-color: #ffffff8e;">
-
-                                        {{ field.errors }}
-                                        {{ field }}
-                                        {% if field.help_text %}
-                                            <p class="help">{{ field.help_text|safe }}</p>
-                                        {% endif %}
-                                    </div>
-
-                                </fieldset>
-                            {% endfor %}
-                            
-                            <input name="submit" id="submit"
-                                   class="btn btn--primary btn-wide btn--large full-width"
-                                   value="Add Comment" type="submit">
-                        </form>
-
                     </div>
+
+                    <div class="comment__text">
+                        <p>{{ comment.text }}</p>
+                    </div>
+
                 </div>
-                    <!-- END respond-->
-        </div>
+
+            </li> <!-- end comment-->
+            {% endfor %}
+
+
+        </ol>
+        <!-- END commentlist -->
         {% else %}
-            The specified post does not exist!
+        <strong style="margin-left: 15px">No comments currently in this post.</strong>
         {% endif %}
 
-    </section> <!-- end s-content -->
-    <script>
-            function initMap() {
-                var address = (document.getElementById('id_location')).innerHTML;
-                // window.alert(address.innerHTML);
-                var geocoder = new google.maps.Geocoder();
-                var map = new google.maps.Map(document.getElementById('googleMap'), {
-                    zoom: 15,
-                    scrollwheel: true,
-                    // center: { lat: -34.397, lng: 150.644 }
-                });
+    </div>
+    <br>
+    <div class=row>
+        <!-- START respond -->
+        <div id="respond" class="col-full">
 
-                var infowindow = new google.maps.InfoWindow({
-                    content: address
-                });
-    
-                // var address = document.getElementById('address').value;
-    
-                geocoder.geocode({ 'address': address }, function (results, status) {
-                    if (status === 'OK') {
-                        map.setCenter(results[0].geometry.location);
-                        var marker = new google.maps.Marker({
-                            map: map,
-                            position: results[0].geometry.location,
-                            title: results[0].address
-                        });
-                    } else {
-                        alert('Geocode was not successful for the following reason: ' + status);
-                    }
-                    // Attach it to the marker we've just added
-                    google.maps.event.addListener(marker, 'click', function() {
-                        infowindow.open(map,marker);
-                    })
-                })
-            }
-        </script>
-            <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOwO2A_hmXFVDvjhz5Ygv9m-ZvR1_gYcM&libraries=places&callback=initMap">
-            </script>
+            {#                    {% if comment_added %}#}
+            {#                        <strong>Thank you for commenting!</strong><br/>#}
+            {#                        <a href="{% url 'index' %}">Click here to reurn to the homepage.</a><br/>#}
+            {#                    {% else %}#}
+
+            <h2 class="h2" align=center style="color: #fc7070;">Add Comment</h2>
+
+            <form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
+                {% for field in comment_form %}
+                <fieldset>
+
+                    <div class="message form-field" style="border: 1px solid #fc7070; background-color: #ffffff8e;">
+
+                        {{ field.errors }}
+                        {{ field }}
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+
+                </fieldset>
+                {% endfor %}
+
+                <input name="submit" id="submit" class="btn btn--primary btn-wide btn--large full-width"
+                    value="Add Comment" type="submit">
+            </form>
+
+        </div>
+    </div>
+    <!-- END respond-->
+    </div>
+    {% else %}
+    The specified post does not exist!
+    {% endif %}
+
+</section> <!-- end s-content -->
+<script type='text/javascript'>setPage('show')</script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOwO2A_hmXFVDvjhz5Ygv9m-ZvR1_gYcM&libraries=places&callback=initMap">
+    </script>
 {% endblock %}
