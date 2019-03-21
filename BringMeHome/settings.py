@@ -40,7 +40,7 @@ SECRET_KEY = 'a*&8@kmom^w5#$q5-nh%c_#dr2nrrko&p^9p0u5x!s!qchbdf1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["djangoit.pythonanywhere.com","localhost",]
+ALLOWED_HOSTS = ["djangoit.pythonanywhere.com","localhost","127.0.0.1",]
 
 
 # Application definition
