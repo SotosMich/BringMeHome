@@ -20,7 +20,7 @@ class Post(models.Model):
     status = models.IntegerField(default=False)
     location = models.CharField(max_length=128, default="")
     # found = models.BooleanField(default=True)
-    userId = models.ForeignKey(User, null=True)
+    userId = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     # slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
@@ -35,8 +35,8 @@ class Comment(models.Model):
     commentId = models.AutoField(primary_key=True)
     text = models.CharField(max_length=256)
     date = models.DateTimeField(auto_now_add=True)
-    userId = models.ForeignKey(User, null=True)
-    postId = models.ForeignKey(Post, related_name='comments', null=True)
+    userId = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    postId = models.ForeignKey(Post, related_name='comments', null=True, on_delete=models.CASCADE)
 
 
 class UserProfile(models.Model):
