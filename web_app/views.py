@@ -68,6 +68,18 @@ def about(request):
     # Return response back to the user, updating any cookies that need changed.
     return response
 
+def contact(request):
+    request.session.set_test_cookie()
+
+    # Call the helper function to handle the cookies
+    visitor_cookie_handler(request)
+
+    # Obtain our Response object early so we can add cookie information.
+    response = render(request, 'web_app/contact.html')
+
+    # Return response back to the user, updating any cookies that need changed.
+    return response
+
 
 def register(request):
     # A boolean value for telling the template
@@ -326,8 +338,3 @@ def show_post(request, postId):
     return render(request, 'web_app/post.html', {'post': post,
                                                  'comment_form': form,
                                                  'comments': comments})
-
-
-def map(request):
-    response = render(request, 'web_app/map.html')
-    return response

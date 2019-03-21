@@ -1,0 +1,61 @@
+{% extends 'web_app/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Contact Us
+{% endblock %}
+{% block body_block %}
+<!-- s-content
+
+    ================================================== -->
+    <section class="s-content s-content--top-padding s-content--narrow">
+
+        <div class="row narrow">
+            <div class="col-full s-content__header">
+                <h1 class="display-1 display-1--with-line-sep">Contact Us.</h1>
+                <p class="lead">
+                 If you have a question about a specific pet please contact users directly. Asking BringMeHome will delay your search for a pet, since each user manages its own post list and information.  
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+                <div id="map-wrap">
+            <div id="googleMap" style="width:100%;height:100%;"></div>
+                </div> 
+
+                <div class="row">
+                    <div class="col-six tab-full">
+                        <h5>Where to Find Us</h5>
+
+                        <p>
+                        University Of Glasgow<br>
+                        Glasgow, Scotland<br>
+                        G12 8QQ
+                        </p>
+
+                    </div>
+
+                    <div class="col-six tab-full">
+                        <h5>Contact Info</h5>
+
+                        <p>bringmehome@student.gla.ac.uk<br>
+                        info@bringmehome.com <br>
+                        Phone: (+1) 123 456
+                        </p>
+
+                    </div>
+                </div>
+
+
+            </div> <!-- s-content__main -->
+        </div> <!-- end row -->
+
+    </section> <!-- end s-content -->
+
+<script type='text/javascript'>setPage('contact')</script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOwO2A_hmXFVDvjhz5Ygv9m-ZvR1_gYcM&libraries=places&callback=initMap">
+</script>
+    
+{% endblock %}

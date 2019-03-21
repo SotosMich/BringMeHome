@@ -60,7 +60,11 @@ function initMap() {
         var location_input = document.getElementById('id_location');
         var autocomplete = new google.maps.places.Autocomplete(location_input);
     } else {
-        if (page == 'add') {
+        if (page == 'contact') {
+            var location_input = document.getElementById('id_location');
+            var autocomplete = new google.maps.places.Autocomplete(location_input);
+            var address = "University Of Glasgow, Dumbarton Road";
+        }else if (page == 'add') {
             var location_input = document.getElementById('id_location');
             var autocomplete = new google.maps.places.Autocomplete(location_input);
             var address = "Glasgow";
